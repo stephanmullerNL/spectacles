@@ -1,10 +1,10 @@
-import { CreeprPage } from './app.po';
+import { BinocularsPage } from './app.po';
 
-describe('creepr App', () => {
-  let page: CreeprPage;
+describe('binoculars App', () => {
+  let page: BinocularsPage;
 
   beforeEach(() => {
-    page = new CreeprPage();
+    page = new BinocularsPage();
   });
 
   it('should display message saying app works', () => {

@@ -1,6 +1,6 @@
 import { browser, by, element } from 'protractor';
 
-export class CreeprPage {
+export class BinocularsPage {
   navigateTo() {
     return browser.get('/');
   }
