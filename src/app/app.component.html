@@ -5,3 +5,5 @@
 <app-find-user (user)="onUserSelect($event)"></app-find-user>
 
 <app-user-info [user]="user" *ngIf="user"></app-user-info>
+
+<pre *ngIf="error">{{error}}</pre>

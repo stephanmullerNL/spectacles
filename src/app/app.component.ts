@@ -1,15 +1,34 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {UserService} from './user.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    providers: [
+        UserService
+    ],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  user: string;
+    error: string;
+    username: string;
+    user;
 
-  onUserSelect(event) {
-    this.user = event;
-  }
+    constructor(private userService: UserService) {
+    }
+
+    onUserSelect(event: string): void {
+        this.username = event;
+
+        this.userService.getUserInfo(event)
+            .then((user) => {
+                this.error = null;
+                this.user = user;
+            })
+            .catch((error) => {
+                this.error = error;
+                this.user = null;
+            });
+    }
 
 }

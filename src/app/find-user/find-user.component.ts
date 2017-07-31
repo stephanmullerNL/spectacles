@@ -13,7 +13,7 @@ export class FindUserComponent implements OnInit {
   ngOnInit() {
   }
 
-  getUserInfo(username) {
+  getUserInfo(username: string): void {
     this.user.emit(username);
   }
 
