@@ -1,7 +1,10 @@
+@import "~roboto-fontface/css/roboto/roboto-fontface.css";
 @import 'app/variables';
 @import '~bootstrap/scss/bootstrap';
 
+
 body {
+    font-size: 14px;
     padding-top: $header-height;
 }
 
