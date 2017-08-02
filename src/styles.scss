@@ -1,20 +1,24 @@
 @import 'app/variables';
 @import '~bootstrap/scss/bootstrap';
 
-app-root {
-    display: flex;
-    flex-direction: column;
+body {
+    padding-top: $header-height;
 }
 
-.header {
-    background: $gray-dark;
-    padding: 40px;
-}
-
-.full-height{
-    min-height: 100%;
+.navbar {
+    height: $header-height;
 }
 
 .sidebar {
     background: linear-gradient(90deg, $gray-dark 0%, $body-bg 100%);
+}
+
+.full-height-container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - #{$header-height});
+}
+
+.full-height-row {
+    flex: 1;
 }

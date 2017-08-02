@@ -14,6 +14,9 @@ export class AppComponent {
     username: string;
     user;
 
+    // temp
+    show: false;
+
     constructor(private userService: UserService) {
         // temp;
         this.onUserSelect('pilcrow');
