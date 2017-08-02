@@ -9,7 +9,8 @@
 
 <div class="container-fluid full-height-container">
     <div class="row full-height-row">
-        <div class="col-md-3 sidebar">
+        <!-- app-sidebar -->
+        <aside class="col-md-3 sidebar">
             <app-user-info [user]="user" *ngIf="user"></app-user-info>
 
             <ul class="nav flex-column">
@@ -26,10 +27,12 @@
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
             </ul>
-        </div>
+        </aside>
 
         <div class="col-md-9">
+            <!-- route-routlet? -->
             <main>
+                <!-- app-dashboard -->
                 <h1>Dashboard goes here</h1>
 
                 <button (click)="show = !show">toggle</button>

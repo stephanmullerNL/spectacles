@@ -1,10 +1,8 @@
-<p>
-  Showing information for user {{username}}
-</p>
+<div class="user-info">
+    <div [style.background-image]="getPictureUrl()" class="user-info__picture"></div>
 
-<h3>{{user.profile.name}}</h3>
-<img src="{{user.profile.profile_image}}" alt="">
-
-<p>
-  {{user.profile.about}}
-</p>
+    <span class="user-info__name">
+        <a href="https://steemit.com/@{{user.name}}" class="user-info__link">{{user.name}}</a>
+        <span class="user-info__reputation">({{user.reputation}})</span>
+    </span>
+</div>
