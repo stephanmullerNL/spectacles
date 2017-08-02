@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { FindUserComponent } from './find-user/find-user.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { ReputationPipe } from './reputation.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     FindUserComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    ReputationPipe
   ],
   imports: [
     BrowserModule,
