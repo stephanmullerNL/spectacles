@@ -1,8 +1,13 @@
-<h1>
-  {{title}}
-</h1>
+<!-- app-header -->
+<header class="row">
+    <div class="col-6">
+        <a href="#" class="navbar-brand">Binoculars for Steemit</a>
+    </div>
+    <div class="col-6">
+        <app-find-user (user)="onUserSelect($event)"></app-find-user>
+    </div>
+</header>
 
-<app-find-user (user)="onUserSelect($event)"></app-find-user>
 
 <app-user-info [user]="user" *ngIf="user"></app-user-info>
 
