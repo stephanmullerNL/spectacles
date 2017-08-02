@@ -1,2 +1,20 @@
 @import 'app/variables';
 @import '~bootstrap/scss/bootstrap';
+
+app-root {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background: $gray-dark;
+    padding: 40px;
+}
+
+.full-height{
+    min-height: 100%;
+}
+
+.sidebar {
+    background: linear-gradient(90deg, $gray-dark 0%, $body-bg 100%);
+}

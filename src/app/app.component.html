@@ -1,5 +1,5 @@
 <!-- app-header -->
-<header class="row">
+<header class="row header">
     <div class="col-6">
         <a href="#" class="navbar-brand">Binoculars for Steemit</a>
     </div>
@@ -8,7 +8,65 @@
     </div>
 </header>
 
+<div class="row full-height">
+    <div class="col-md-3 sidebar">
+        <app-user-info [user]="user" *ngIf="user"></app-user-info>
 
-<app-user-info [user]="user" *ngIf="user"></app-user-info>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+        </ul>
+    </div>
 
-<pre *ngIf="error">{{error}}</pre>
+    <div class="col-md-9">
+        <main>
+            <h1>Dashboard goes here</h1>
+
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+        </main>
+        <pre *ngIf="error">{{error}}</pre>
+    </div>
+</div>
+
