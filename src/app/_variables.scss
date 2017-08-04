@@ -1,11 +1,20 @@
+// Colors
 $body-bg: #424242;
 $body-color: white;
 
-$font-family-sans-serif: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-
+$green: #8bc34a;
 $gray-dark: #333333;
 $gray-light: #757575;
+$lime: #cddc39;
 
 $link-color: white;
 
+// Fonts
+$font-family-sans-serif: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+// Sizes
 $header-height: 100px;
+
+$nav-link-padding: 2em 3em;
+
+@import '~bootstrap/scss/variables';

@@ -1,0 +1,20 @@
+@import '../variables';
+
+.nav {
+    margin-top: 2em;
+}
+
+.nav-item {
+    margin-left: calc(-#{$grid-gutter-width-base} / 2);
+}
+
+.nav-link {
+    &.active {
+        border-left: 5px solid $lime;
+    }
+
+    &.active,
+    &:hover {
+        background: linear-gradient(90deg, rgba(242, 242, 242, 0.1) 0%, rgba(242, 242, 242, 0) 100%)
+    }
+}
