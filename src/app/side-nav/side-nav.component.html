@@ -1,0 +1,20 @@
+<app-user-info [user]="user" *ngIf="user"></app-user-info>
+
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link"
+           [routerLink]="['/', '@' + user.name]"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link"
+           [routerLink]="['/', '@' + user.name, 'followers']"
+           routerLinkActive="active">Followers</a>
+    </li>
+    <li class="nav-item">
+        <a [routerLink]="['/', '@' + user.name, 'upvotes']"
+           class="nav-link"
+           routerLinkActive="active">Upvotes</a>
+    </li>
+</ul>

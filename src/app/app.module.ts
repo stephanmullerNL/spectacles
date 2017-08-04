@@ -11,17 +11,25 @@ import {AppRoutes} from './app.routes';
 import {RouterModule} from '@angular/router';
 import {MainComponent} from './main/main.component';
 import {HomeComponent} from './home/home.component';
-import {UserService} from './user.service';
-import {UserResolver} from './user-resolver.service';
+import {UserService} from './user/user.service';
+import {UserResolver} from './user/user-resolver.service';
+import {SideNavComponent} from './side-nav/side-nav.component';
+import {DashboardComponent} from './main/dashboard/dashboard.component';
+import {FollowersComponent} from './main/followers/followers.component';
+import {UpvotesComponent} from './main/upvotes/upvotes.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        DashboardComponent,
         FindUserComponent,
+        FollowersComponent,
+        UpvotesComponent,
         UserInfoComponent,
         ReputationPipe,
         MainComponent,
-        HomeComponent
+        HomeComponent,
+        SideNavComponent
     ],
     imports: [
         BrowserModule,
