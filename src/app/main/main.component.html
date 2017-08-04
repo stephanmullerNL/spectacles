@@ -14,53 +14,9 @@
       <app-side-nav [user]="user"></app-side-nav>
     </aside>
 
-    <div class="col-md-9">
-      <!-- route-routlet? -->
-      <main>
-        <!-- app-dashboard -->
-        <h1>Dashboard goes here</h1>
-
-        {{user.id}}
-
-        <button (click)="show = !show">toggle</button>
-
-        <div *ngIf="show">
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-          <p>content</p>
-        </div>
-      </main>
-    </div>
+    <main class="col-md-9">
+      <router-outlet></router-outlet>
+    </main>
   </div>
 
 </div>

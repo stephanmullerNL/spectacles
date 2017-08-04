@@ -5,15 +5,21 @@ import {User} from './user';
 @Injectable()
 export class UserService {
 
+    private user: User;
+
     constructor() {
     }
 
-    getUser(username: string) {
+    getActiveUser(): User {
+        return this.user;
+    }
+
+    getUser(username: string): Promise<User> {
         return Steem.api.getAccounts([username]).then((users: User[]) => {
             if (!users.length) {
                 throw new Error(`User ${username} not found`);
             } else {
-                return this.transform(users[0]);
+                return this.user = this.transform(users[0]);
             }
         });
     }

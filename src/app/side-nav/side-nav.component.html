@@ -2,15 +2,12 @@
 
 <ul class="nav flex-column">
     <li class="nav-item">
-        <a class="nav-link active" href="#">Active</a>
+        <a [routerLink]="['/', '@' + user.name]" class="nav-link" routerLinkActive="active">Dashboard</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a [routerLink]="['/', '@' + user.name, 'followers']" class="nav-link">Followers</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a [routerLink]="['/', '@' + user.name, 'upvotes']" routerLinkActive="active" class="nav-link">Upvotes</a>
     </li>
 </ul>
