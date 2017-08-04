@@ -9,24 +9,9 @@
 
 <div class="container-fluid full-height-container">
   <div class="row full-height-row">
-    <!-- app-sidebar -->
-    <aside class="col-md-3 sidebar">
-      <app-user-info [user]="user" *ngIf="user"></app-user-info>
 
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Active</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li>
-      </ul>
+    <aside class="col-md-3 sidebar">
+      <app-side-nav></app-side-nav>
     </aside>
 
     <div class="col-md-9">
@@ -75,7 +60,6 @@
           <p>content</p>
         </div>
       </main>
-      <pre *ngIf="error">{{error}}</pre>
     </div>
   </div>
 
