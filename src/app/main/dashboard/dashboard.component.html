@@ -1,23 +1,23 @@
-<div class="row">
+<div class="row mr-1">
     <div class="col-md-4">
-        <app-card [icon]="person"
-                  [value]="user.id"
+        <app-card [icon]="'👤'"
+                  [value]="followCount.follower_count"
                   [title]="'followers'"
                   [description]="'Your Steemit fans'">
         </app-card>
     </div>
     <div class="col-md-4">
-        <app-card [icon]="person"
-                  [value]="user.id"
-                  [title]="'followers'"
-                  [description]="'Your Steemit fans'">
+        <app-card [icon]="'👤'"
+                  [value]="followCount.following_count"
+                  [title]="'following'"
+                  [description]="'Your role models'">
         </app-card>
     </div>
     <div class="col-md-4">
-        <app-card [icon]="person"
-                  [value]="user.id"
-                  [title]="'followers'"
-                  [description]="'Your Steemit fans'">
+        <app-card [icon]="'👑'"
+                  [value]="'@' + user.name"
+                  [title]="'most loyal'"
+                  [description]="'Every 1.5 post'">
         </app-card>
     </div>
 </div>

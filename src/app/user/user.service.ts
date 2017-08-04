@@ -1,6 +1,7 @@
 import * as Steem from 'steem';
 import {Injectable} from '@angular/core';
-import {User} from './user';
+import {User} from '../models/user';
+import {UserFollowCount} from '../models/userFollowCount';
 
 @Injectable()
 export class UserService {
