@@ -1,41 +1,71 @@
-<h1>Dashboard goes here</h1>
+<div class="row">
+    <div class="col-md-4">
+        <app-card [icon]="person"
+                  [value]="user.id"
+                  [title]="'followers'"
+                  [description]="'Your Steemit fans'">
+        </app-card>
+    </div>
+    <div class="col-md-4">
+        <app-card [icon]="person"
+                  [value]="user.id"
+                  [title]="'followers'"
+                  [description]="'Your Steemit fans'">
+        </app-card>
+    </div>
+    <div class="col-md-4">
+        <app-card [icon]="person"
+                  [value]="user.id"
+                  [title]="'followers'"
+                  [description]="'Your Steemit fans'">
+        </app-card>
+    </div>
+</div>
 
-{{user.id}}
+<div class="row">
+    <div class="col-12">
+        <h1>Dashboard goes here</h1>
 
-<button (click)="show = !show">toggle</button>
+        {{user.id}}
 
-<div *ngIf="show">
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
-  <p>content</p>
+        <button (click)="show = !show">toggle</button>
+
+        <div *ngIf="show">
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+            <p>content</p>
+        </div>
+
+
+    </div>
 </div>
