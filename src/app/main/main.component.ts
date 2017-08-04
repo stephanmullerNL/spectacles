@@ -1,38 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-// import {UserService} from '../user.service';
 import {ActivatedRoute} from '@angular/router';
+import {UserService} from '../user/user.service';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  user;
+    user;
 
-  // temp
-  show: false;
+    // temp
+    show: false;
 
-  constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute,
+                private userService: UserService) {
 
-  }
+    }
 
-  ngOnInit() {
-      this.user = this.route.snapshot.data['user'];
-  }
+    ngOnInit() {
+        // this.user = this.route.snapshot.data['user'];
+        this.user = this.userService.getUser();
+    }
 
-  //
-  // onUserSelect(event: string): void {
-  //   this.username = event;
-  //
-  //   this.userService.getUserInfo(event)
-  //       .then((user) => {
-  //         this.error = null;
-  //         this.user = user;
-  //       })
-  //       .catch((error) => {
-  //         this.error = error;
-  //         this.user = null;
-  //       });
-  // }
+
+    onUserSelect(event: string): void {
+
+    }
 }

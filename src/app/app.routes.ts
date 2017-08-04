@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {MainComponent} from './main/main.component';
-import {UserResolver} from './user-resolver.service';
+import {UserResolver} from './user/user-resolver.service';
 
 export const AppRoutes: Routes = [
     {

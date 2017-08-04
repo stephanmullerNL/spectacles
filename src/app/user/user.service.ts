@@ -4,17 +4,24 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class UserService {
 
+    user;
+
     constructor() {
     }
 
-    getUserInfo(username: string) {
+    fetchUser(username: string) {
         return Steem.api.getAccounts([username]).then(user => {
             if (!user.length) {
                 throw new Error(`User ${username} not found`);
             } else {
-                return this.transform(user[0]);
+                this.user = this.transform(user[0]);
+                return this.user;
             }
         });
+    }
+
+    getUser() {
+        return this.user;
     }
 
     private transform(user) {

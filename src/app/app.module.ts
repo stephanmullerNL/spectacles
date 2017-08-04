@@ -11,8 +11,8 @@ import {AppRoutes} from './app.routes';
 import {RouterModule} from '@angular/router';
 import {MainComponent} from './main/main.component';
 import {HomeComponent} from './home/home.component';
-import {UserService} from './user.service';
-import {UserResolver} from './user-resolver.service';
+import {UserService} from './user/user.service';
+import {UserResolver} from './user/user-resolver.service';
 
 @NgModule({
     declarations: [
