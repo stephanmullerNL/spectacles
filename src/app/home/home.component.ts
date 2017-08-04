@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../user/user.service';
-import {User} from '../user/user';
+import {User} from '../models/user';
 
 @Component({
     templateUrl: './home.component.html',

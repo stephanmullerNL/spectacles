@@ -3,8 +3,11 @@
 @import '~bootstrap/scss/bootstrap';
 
 
-body {
+html {
     font-size: 14px;
+}
+
+body {
     padding-top: $header-height;
 }
 

@@ -4,6 +4,7 @@ $body-color: white;
 
 $green: #8bc34a;
 $gray-dark: #333333;
+$gray-medium: #3f3e3e;
 $gray-light: #757575;
 $lime: #cddc39;
 
@@ -12,9 +13,19 @@ $link-color: white;
 // Fonts
 $font-family-sans-serif: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-// Sizes
+// Grid
+$grid-gutter-width-base: 20px;
+
+// *** Components *** //
+
+// Card
+$card-border-radius: 0;
+$card-border-width: 0;
+
+// Header
 $header-height: 100px;
 
+// Nav
 $nav-link-padding: 2em 3em;
 
 @import '~bootstrap/scss/variables';
