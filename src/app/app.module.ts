@@ -17,6 +17,7 @@ import {SideNavComponent} from './side-nav/side-nav.component';
 import {DashboardComponent} from './main/dashboard/dashboard.component';
 import {FollowersComponent} from './main/followers/followers.component';
 import {UpvotesComponent} from './main/upvotes/upvotes.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {UpvotesComponent} from './main/upvotes/upvotes.component';
         ReputationPipe,
         MainComponent,
         HomeComponent,
-        SideNavComponent
+        SideNavComponent,
+        CardComponent
     ],
     imports: [
         BrowserModule,
