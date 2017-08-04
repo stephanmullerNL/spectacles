@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {UserService} from '../user/user.service';
 
 @Component({
     selector: 'app-home',
@@ -8,10 +9,19 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent {
 
-    constructor(private router: Router) {
+    error;
+
+    constructor(private router: Router,
+                private userService: UserService) {
     }
 
     onUserSelect($event) {
-        this.router.navigate(['/', `@${$event}`]);
+        this.userService.fetchUser($event)
+            .then((user) => {
+                this.router.navigate(['/', `@${user.name}`]);
+            })
+            .catch((error) => {
+                this.error = error;
+            });
     }
 }
