@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../user/user.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-main',
@@ -12,10 +12,10 @@ export class MainComponent implements OnInit {
     // temp
     show: false;
 
-    constructor(private userService: UserService) {
+    constructor(private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.user = this.userService.getUser();
+        this.user = this.route.snapshot.data['user'];
     }
 }
