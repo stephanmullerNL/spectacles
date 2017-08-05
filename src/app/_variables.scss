@@ -3,10 +3,13 @@ $body-bg: #424242;
 $body-color: white;
 
 $green: #8bc34a;
-$gray-dark: #333333;
-$gray-medium: #3f3e3e;
-$gray-light: #757575;
 $lime: #cddc39;
+
+$gray-dark: #333333;
+$gray-medium: #424242;
+$gray-light: #9e9e9e;
+
+$brand-primary: $lime;
 
 $link-color: white;
 
@@ -24,6 +27,14 @@ $card-border-width: 0;
 
 // Header
 $header-height: 100px;
+
+// Input
+$input-bg: transparent;
+$input-border-color: $gray-medium;
+$input-color: $body-color;
+
+$input-group-addon-bg: transparent;
+$input-group-addon-border-color: transparent;
 
 // Nav
 $nav-link-padding: 2em 3em;
