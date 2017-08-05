@@ -1,7 +1,7 @@
 <div class="home">
     Enter a username
 
-    <app-find-user (user)="onUserSelect($event)"></app-find-user>
+    <app-find-user (error)="onError($event)"></app-find-user>
 
     <div class="alert-danger" *ngIf="error">{{error}}</div>
 </div>

@@ -1,7 +1,6 @@
 import * as Steem from 'steem';
 import {Injectable} from '@angular/core';
 import {User} from '../models/user';
-import {UserFollowCount} from '../models/userFollowCount';
 
 @Injectable()
 export class UserService {
@@ -16,13 +15,16 @@ export class UserService {
     }
 
     getUser(username: string): Promise<User> {
-        return Steem.api.getAccounts([username]).then((users: User[]) => {
-            if (!users.length) {
-                throw new Error(`User ${username} not found`);
-            } else {
-                return this.user = this.transform(users[0]);
-            }
-        });
+        const name = username.toLowerCase();
+
+        return Steem.api.getAccounts([name])
+            .then((users: User[]) => {
+                if (!users.length) {
+                    throw new Error(`User ${username} not found`);
+                } else {
+                    return this.user = this.transform(users[0]);
+                }
+            });
     }
 
     private transform(user: User): User {
