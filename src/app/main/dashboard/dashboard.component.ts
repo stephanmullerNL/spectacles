@@ -11,7 +11,7 @@ import {FollowersService} from '../../user/followers.service';
 })
 export class DashboardComponent implements OnInit {
     user: User;
-    followCount: UserFollowCount;
+    followCount = new UserFollowCount();
 
     constructor(private userService: UserService,
                 private followersService: FollowersService) {
