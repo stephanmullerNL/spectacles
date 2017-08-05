@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {UserService} from '../user/user.service';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 
 @Component({
     templateUrl: './main.component.html',
@@ -11,10 +12,10 @@ export class MainComponent implements OnInit {
     // temp
     show: false;
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private userService: UserService) {
     }
 
     ngOnInit() {
-        this.user = this.route.snapshot.data['user'];
+        this.userService.user$.subscribe(user => this.user = user);
     }
 }

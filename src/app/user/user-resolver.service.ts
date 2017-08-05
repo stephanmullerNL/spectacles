@@ -15,13 +15,8 @@ export class UserResolver implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {
         const username = route.paramMap.get('username').substr(1);
 
-        return this.userService.getUser(username).then(user => {
-            if (user) {
-                return user;
-            } else {
-                this.router.navigate(['/oops']);
-                return null;
-            }
+        return this.userService.getUser(username).catch(error => {
+            this.router.navigate(['/oops']);
         });
     }
 }

@@ -19,6 +19,7 @@ import {FollowersComponent} from './main/followers/followers.component';
 import {UpvotesComponent} from './main/upvotes/upvotes.component';
 import {CardComponent} from './card/card.component';
 import {FollowersService} from './user/followers.service';
+import {FollowersResolver} from './user/followers-resolver.service';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import {FollowersService} from './user/followers.service';
     ],
     providers: [
         FollowersService,
+        FollowersResolver,
         UserService,
         UserResolver
     ],

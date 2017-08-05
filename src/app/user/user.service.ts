@@ -1,17 +1,16 @@
 import * as Steem from 'steem';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Injectable} from '@angular/core';
 import {User} from '../models/user';
 
 @Injectable()
 export class UserService {
 
-    private user: User;
+    private _user = new BehaviorSubject<User>(new User());
+
+    user$ = this._user.asObservable();
 
     constructor() {
-    }
-
-    getActiveUser(): User {
-        return this.user;
     }
 
     getUser(username: string): Promise<User> {
@@ -22,7 +21,9 @@ export class UserService {
                 if (!users.length) {
                     throw new Error(`User ${username} not found`);
                 } else {
-                    return this.user = this.transform(users[0]);
+                    const user = this.transform(users[0]);
+                    this._user.next(user);
+                    return this.transform(users[0]);
                 }
             });
     }

@@ -10,18 +10,17 @@ import {FollowersService} from '../../user/followers.service';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    user: User;
+    user = new User();
     followCount = new UserFollowCount();
 
     constructor(private userService: UserService,
                 private followersService: FollowersService) {
-        this.user = this.userService.getActiveUser();
     }
 
     ngOnInit() {
-        this.followersService.getFollowCount(this.user.name).then((followCount: UserFollowCount) => {
-            this.followCount = followCount;
-        });
+        this.userService.user$.subscribe(user => this.user = user);
+        this.followersService.followCount$
+            .subscribe(followCount => this.followCount = followCount);
     }
 
 }
