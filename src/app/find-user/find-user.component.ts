@@ -3,7 +3,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 @Component({
   selector: 'app-find-user',
   templateUrl: './find-user.component.html',
-  styleUrls: ['./find-user.component.css']
+  styleUrls: ['./find-user.component.scss']
 })
 export class FindUserComponent implements OnInit {
   @Output() user: EventEmitter<string> = new EventEmitter<string>();
