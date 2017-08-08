@@ -11,12 +11,10 @@ body {
     padding-top: $header-height;
 }
 
-.navbar {
-    height: $header-height;
-}
-
-.sidebar {
-    background: linear-gradient(90deg, $gray-dark 0%, $body-bg 100%);
+.block {
+    background: $card-background;
+    margin-top: $grid-gutter-width-base;
+    padding: 30px;
 }
 
 .full-height-container {
@@ -27,4 +25,12 @@ body {
 
 .full-height-row {
     flex: 1;
+}
+
+.navbar {
+    height: $header-height;
+}
+
+.sidebar {
+    background: linear-gradient(90deg, $gray-dark 0%, $body-bg 100%);
 }

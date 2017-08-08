@@ -1,25 +1,26 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
+import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {FindUserComponent} from './find-user/find-user.component';
-import {UserInfoComponent} from './user-info/user-info.component';
-import {ReputationPipe} from './reputation.pipe';
 import {AppRoutes} from './app.routes';
-import {RouterModule} from '@angular/router';
-import {MainComponent} from './main/main.component';
-import {HomeComponent} from './home/home.component';
-import {UserService} from './user/user.service';
-import {UserResolver} from './user/user-resolver.service';
-import {SideNavComponent} from './side-nav/side-nav.component';
-import {DashboardComponent} from './main/dashboard/dashboard.component';
-import {FollowersComponent} from './main/followers/followers.component';
-import {UpvotesComponent} from './main/upvotes/upvotes.component';
 import {CardComponent} from './card/card.component';
-import {FollowersService} from './user/followers.service';
+import {DashboardComponent} from './main/dashboard/dashboard.component';
+import {FindUserComponent} from './find-user/find-user.component';
+import {FollowersComponent} from './main/followers/followers.component';
 import {FollowersResolver} from './user/followers-resolver.service';
+import {FollowersService} from './user/followers.service';
+import {HomeComponent} from './home/home.component';
+import {MainComponent} from './main/main.component';
+import {ReputationPipe} from './reputation.pipe';
+import {RouterModule} from '@angular/router';
+import {SideNavComponent} from './side-nav/side-nav.component';
+import {UpvotesComponent} from './main/upvotes/upvotes.component';
+import {UserInfoComponent} from './user-info/user-info.component';
+import {UserResolver} from './user/user-resolver.service';
+import {UserService} from './user/user.service';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import {FollowersResolver} from './user/followers-resolver.service';
     ],
     imports: [
         BrowserModule,
+        ChartsModule,
         FormsModule,
         HttpModule,
         RouterModule.forRoot(AppRoutes)

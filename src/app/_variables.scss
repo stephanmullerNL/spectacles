@@ -22,6 +22,7 @@ $grid-gutter-width-base: 20px;
 // *** Components *** //
 
 // Card
+$card-background: linear-gradient(180deg, #{$gray-dark} 0%, #{darken($gray-medium, 1.5%)} 98.9%);
 $card-border-radius: 0;
 $card-border-width: 0;
 
