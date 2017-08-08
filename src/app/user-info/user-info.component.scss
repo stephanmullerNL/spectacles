@@ -4,7 +4,8 @@
     text-align: center;
 
     &__picture {
-        background-size: contain;
+        background: center center no-repeat;
+        background-size: cover;
         border-radius: 100px;
         height: 100px;
         margin: 20px auto;

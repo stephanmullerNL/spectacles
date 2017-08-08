@@ -16,7 +16,7 @@ export class UserInfoComponent implements OnInit {
     }
 
     getPictureUrl(): string {
-        return `url(${this.user.profile.profile_image})`;
+        return `url(https://steemitimages.com/150x150/${this.user.profile.profile_image})`;
     }
 
 }
