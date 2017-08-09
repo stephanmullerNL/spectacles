@@ -5,7 +5,6 @@ import {UserResolver} from './user/user-resolver.service';
 import {DashboardComponent} from './main/dashboard/dashboard.component';
 import {FollowersComponent} from './main/followers/followers.component';
 import {UpvotesComponent} from './main/upvotes/upvotes.component';
-import {FollowersResolver} from "./user/followers-resolver.service";
 
 
 export const AppRoutes: Routes = [
@@ -23,10 +22,7 @@ export const AppRoutes: Routes = [
             // {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
             {
                 path: '',
-                component: DashboardComponent,
-                resolve: {
-                    followCount: FollowersResolver
-                }
+                component: DashboardComponent
             },
             {path: 'followers', component: FollowersComponent},
             {path: 'upvotes', component: UpvotesComponent}
