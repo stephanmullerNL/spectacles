@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit {
     following = [];
     posts = [];
 
-    userUpvotes = {};
     user = new User();
 
     constructor(private followersService: FollowersService,
@@ -52,29 +51,6 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.userService.user$.subscribe(user => this.updateAll(user));
-    }
-
-    getUserUpvotes() {
-        const toVoter = vote => vote.voter;
-
-        return this.posts
-            .reduce((all, current) => {
-                const postVoters = current.active_votes.map(toVoter);
-
-                return all.concat(postVoters);
-            }, [])
-            .reduce((all, current) => {
-                all[current] = (all[current] || 0) + 1;
-                return all;
-            }, {});
-    }
-
-    private addUpvoteCount(upvotes) {
-        this.followers = this.followers.map(follower => {
-            console.log(follower, upvotes[follower.name]);
-            follower.upvoted = upvotes[follower.name] || 0;
-            return follower;
-        });
     }
 
     private updateAll(user) {
@@ -88,14 +64,22 @@ export class DashboardComponent implements OnInit {
 
         Promise.all(promises).then(([followCount, followers, posts]) => {
             this.followCount = followCount;
-            this.followers = followers.map(follower => ({name: follower}));
             this.posts = posts;
-
-            const upvotes = this.getUserUpvotes();
-            console.log(upvotes);
-            this.addUpvoteCount(upvotes);
+            this.followers = this.extendFollowers(followers);
 
             console.log(this.followers);
+        });
+    }
+
+    private extendFollowers(followers) {
+        const upvoters = this.postsService.getPostUpvoters(this.posts);
+        const commenters = this.postsService.getPostCommenters(this.posts);
+
+        return followers.map(follower => {
+            return Object.assign({}, follower, {
+                upvotes: upvoters[follower.follower] || 0,
+                comments: commenters[follower.follower] || 0
+            });
         });
     }
 }

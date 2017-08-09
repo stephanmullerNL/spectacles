@@ -10,23 +10,14 @@ export class FollowersService {
     }
 
     getFollowCount(username: string): Promise<UserFollowCount> {
-        return Steem.api.getFollowCount(username).then(res => {
-            console.log('count', res);
-            return res;
-        });
+        return Steem.api.getFollowCount(username);
     }
 
     getFollowers(username: string) {
-        const toFollowerName = follower => follower.follower;
-
-        return Steem.api.getFollowers(username, 0, 'blog', 100)
-            .then(followers => followers.map(toFollowerName));
+        return Steem.api.getFollowers(username, 0, 'blog', 100);
     }
 
     getFollowing(username: string) {
-        const toUserName = follower => follower.following;
-
-        return Steem.api.getFollowing(username, 0, 'blog', 100)
-            .then(following => following.map(toUserName));
+        return Steem.api.getFollowing(username, 0, 'blog', 100);
     }
 }
