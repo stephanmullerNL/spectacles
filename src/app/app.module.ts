@@ -21,6 +21,7 @@ import {UpvotesComponent} from './main/upvotes/upvotes.component';
 import {UserInfoComponent} from './user-info/user-info.component';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
+import {PostsService} from './user/posts.service';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import {UserService} from './user/user.service';
     providers: [
         FollowersService,
         FollowersResolver,
+        PostsService,
         UserService,
         UserResolver
     ],
