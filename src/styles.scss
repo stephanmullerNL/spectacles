@@ -34,3 +34,10 @@ body {
 .sidebar {
     background: linear-gradient(90deg, $gray-dark 0%, $body-bg 100%);
 }
+
+.table {
+    th {
+        color: $gray-light;
+        font-weight: normal;
+    }
+}

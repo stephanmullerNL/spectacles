@@ -1,0 +1,11 @@
+@import '../../_variables';
+
+.table-wrapper {
+    padding: 0;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.most-loyal {
+    border-left: 2px solid $blue;
+}

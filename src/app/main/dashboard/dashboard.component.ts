@@ -67,6 +67,9 @@ export class DashboardComponent implements OnInit {
             this.posts = posts;
             this.followers = this.extendFollowers(followers);
 
+
+            // Do this in ngFor later
+            this.followers.sort((a, b) => b.frequency - a.frequency);
             console.log(this.followers);
         });
     }
@@ -76,9 +79,14 @@ export class DashboardComponent implements OnInit {
         const commenters = this.postsService.getPostCommenters(this.posts);
 
         return followers.map(follower => {
+            const upvotes = upvoters[follower.follower] || 0;
+            const comments = commenters[follower.follower] || 0
+
             return Object.assign({}, follower, {
-                upvotes: upvoters[follower.follower] || 0,
-                comments: commenters[follower.follower] || 0
+                upvotes: upvotes,
+                comments: comments,
+                frequency: ((upvotes + comments) / this.posts.length).toFixed(2),
+                avgReward: Math.random().toFixed(2)
             });
         });
     }

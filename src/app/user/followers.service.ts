@@ -14,7 +14,7 @@ export class FollowersService {
     }
 
     getFollowers(username: string) {
-        return Steem.api.getFollowers(username, 0, 'blog', 100);
+        return Steem.api.getFollowers(username, 0, 'blog', 1000);
     }
 
     getFollowing(username: string) {

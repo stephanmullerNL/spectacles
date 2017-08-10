@@ -37,50 +37,30 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="col-12">
-        <h1>Dashboard goes here</h1>
+        <h2>Most Loyal Followers</h2>
 
-        {{user.id}}
-
-        <button (click)="show = !show">toggle</button>
-
-        <div *ngIf="show">
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
-            <p>content</p>
+        <div class="block table-wrapper">
+            <table class="table most-loyal">
+            <tr>
+                <th>Name</th>
+                <th>Upvotes</th>
+                <th>Comments</th>
+                <th>Interaction Frequency</th>
+                <th>Avg $ upvote</th>
+                <th>Total $ received</th>
+            </tr>
+            <tr *ngFor="let follower of followers">
+                <td>@{{follower.follower}}</td>
+                <td>{{follower.upvotes}}</td>
+                <td>{{follower.comments}}</td>
+                <td>{{follower.frequency}}</td>
+                <td>${{follower.avgReward}}</td>
+                <td></td>
+            </tr>
+        </table>
         </div>
-
-
     </div>
 </div>

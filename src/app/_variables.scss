@@ -2,6 +2,7 @@
 $body-bg: #424242;
 $body-color: white;
 
+$blue: #03A9F4;
 $green: #8bc34a;
 $lime: #cddc39;
 
@@ -39,5 +40,9 @@ $input-group-addon-border-color: transparent;
 
 // Nav
 $nav-link-padding: 2em 3em;
+
+// Table
+$table-cell-padding: 1.5em;
+$table-border-color: $gray-medium;
 
 @import '~bootstrap/scss/variables';
