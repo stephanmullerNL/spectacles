@@ -57,30 +57,31 @@ export class DashboardComponent implements OnInit {
         this.user = user;
 
         const promises = [
-            this.followersService.getFollowCount(user.name),
-            this.followersService.getFollowers(user.name),
-            this.postsService.getPostsByUser(user.name)
+            this.followersService.getFollowCountAsync(user.name),
+            this.followersService.getFollowersAsync(user.name),
+            this.postsService.getPostsByUserAsync(user.name)
         ];
 
         Promise.all(promises).then(([followCount, followers, posts]) => {
             this.followCount = followCount;
             this.posts = posts;
-            this.followers = this.extendFollowers(followers);
 
+            this.extendFollowersAsync(followers).then(result => {
+                this.followers = result;
 
-            // Do this in ngFor later
-            this.followers.sort((a, b) => b.frequency - a.frequency);
-            console.log(this.followers);
+                // Do this in ngFor later
+                this.followers.sort((a, b) => b.frequency - a.frequency);
+            });
         });
     }
 
-    private extendFollowers(followers) {
+    private async extendFollowersAsync(followers) {
         const upvoters = this.postsService.getPostUpvoters(this.posts);
-        const commenters = this.postsService.getPostCommenters(this.posts);
+        const commenters = await this.postsService.getPostCommentersAsync(this.posts);
 
         return followers.map(follower => {
             const upvotes = upvoters[follower.follower] || 0;
-            const comments = commenters[follower.follower] || 0
+            const comments = commenters[follower.follower] || 0;
 
             return Object.assign({}, follower, {
                 upvotes: upvotes,
