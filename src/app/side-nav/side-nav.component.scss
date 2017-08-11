@@ -18,3 +18,17 @@
         background: linear-gradient(90deg, rgba(242, 242, 242, 0.1) 0%, rgba(242, 242, 242, 0) 100%)
     }
 }
+
+.side-nav__footer {
+    color: $gray-light;
+
+    .mdi-heart,
+    .steemit-icon {
+        margin: 0 3px;
+    }
+
+    .mdi-heart {
+        color: $red;
+        vertical-align: middle;
+    }
+}
