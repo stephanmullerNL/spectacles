@@ -1,7 +1,8 @@
-<div class="card block">
+<div class="card block" [ngClass]="{'block--loading': !ready}">
     <i class="card-icon card-icon--{{iconColor}} mdi mdi-{{icon}}"></i>
+
     <h1 class="card-title h2">
-        {{value}}
+        {{value || '-'}}
     </h1>
     <p class="card-subtitle">
         {{title}}

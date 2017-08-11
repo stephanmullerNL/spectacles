@@ -1,5 +1,5 @@
 export class UserFollowCount {
-    name: string;
+    account: string;
     follower_count: number;
     following_count: number;
 }

@@ -4,7 +4,6 @@ import {User} from '../../models/user';
 import {UserFollowCount} from '../../models/userFollowCount';
 import {FollowersService} from '../../user/followers.service';
 import {PostsService} from '../../user/posts.service';
-import {getUrlScheme} from '@angular/compiler';
 
 @Component({
     selector: 'app-dashboard',
@@ -53,7 +52,14 @@ export class DashboardComponent implements OnInit {
         this.userService.user$.subscribe(user => this.updateAll(user));
     }
 
+    resetDisplayValues() {
+        this.followers = [];
+        this.followCount = new UserFollowCount();
+    }
+
     private updateAll(user) {
+        this.resetDisplayValues();
+
         this.user = user;
 
         const promises = [

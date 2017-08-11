@@ -16,6 +16,21 @@ body {
     background: $card-background;
     margin-top: $grid-gutter-width-base;
     padding: 30px;
+
+    &--loading::after {
+        align-items: center;
+        background: rgba(55,55,55,.8);
+        bottom: 0;
+        content: ' ';
+        display: flex;
+        font-size: 3em;
+        justify-content: center;
+        left: 0;
+        opacity: .9;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 }
 
 .full-height-container {
