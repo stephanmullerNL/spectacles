@@ -2,17 +2,24 @@
 
 .card {
     text-align: center;
-}
 
-.card-title {
-    margin: 24px 0 10px;
-}
+    &-icon {
+        font-size: 24px;
 
-.card-subtitle {
-    margin-bottom: 24px;
-}
+        &--green { color: $green; }
+        &--yellow { color: $yellow; }
+    }
 
-.card-text {
-    color: $gray-light;
-    font-size: $font-size-sm;
+    &-text {
+        color: $gray-light;
+        font-size: $font-size-sm;
+    }
+
+    &-title {
+        margin: 24px 0 10px;
+    }
+
+    &-subtitle {
+        margin-bottom: 24px;
+    }
 }

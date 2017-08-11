@@ -1,21 +1,24 @@
 <div class="row">
     <div class="col-md-4">
-        <app-card [icon]="'👤'"
+        <app-card [icon]="'account'"
+                  [iconColor]="'green'"
                   [value]="followCount.follower_count"
                   [title]="'followers'"
                   [description]="'Your Steemit fans'">
         </app-card>
     </div>
     <div class="col-md-4">
-        <app-card [icon]="'👤'"
+        <app-card [icon]="'account'"
+                  [iconColor]="'green'"
                   [value]="followCount.following_count"
                   [title]="'following'"
                   [description]="'Your role models'">
         </app-card>
     </div>
     <div class="col-md-4">
-        <app-card [icon]="'👑'"
-                  [value]="'@' + user.name"
+        <app-card [icon]="'crown'"
+                  [iconColor]="'yellow'"
+                  [value]="followers.length ? '@' + followers[0].follower : ''"
                   [title]="'most loyal'"
                   [description]="'Every 1.5 post'">
         </app-card>
