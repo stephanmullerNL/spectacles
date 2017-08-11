@@ -14,6 +14,6 @@ export class FollowersResolver implements Resolve<any> {
         const username = route.paramMap.get('username').substr(1);
 
         return this.followersService
-            .getFollowCountAsync(username);
+            .getFollowCount(username);
     }
 }

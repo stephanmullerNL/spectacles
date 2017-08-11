@@ -9,12 +9,12 @@ export class FollowersService {
     constructor() {
     }
 
-    getFollowCountAsync(username: string): Promise<UserFollowCount> {
-        return Steem.api.getFollowCountAsync(username);
+    getFollowCount(username: string): Promise<UserFollowCount> {
+        return Steem.api.getFollowCount(username);
     }
 
-    getFollowersAsync(username: string) {
-        return Steem.api.getFollowersAsync(username, 0, 'blog', 1000);
+    getFollowers(username: string) {
+        return Steem.api.getFollowers(username, 0, 'blog', 1000);
     }
 
     getFollowing(username: string) {

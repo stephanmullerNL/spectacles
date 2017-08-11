@@ -57,8 +57,8 @@ export class DashboardComponent implements OnInit {
         this.user = user;
 
         const promises = [
-            this.followersService.getFollowCountAsync(user.name),
-            this.followersService.getFollowersAsync(user.name),
+            this.followersService.getFollowCount(user.name),
+            this.followersService.getFollowers(user.name),
             this.postsService.getPostsByUserAsync(user.name)
         ];
 
