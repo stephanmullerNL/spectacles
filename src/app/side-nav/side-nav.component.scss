@@ -1,6 +1,14 @@
 @import '../variables';
 
+:host {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .nav {
+    flex: 1;
     margin-top: 2em;
 }
 
@@ -20,8 +28,6 @@
 }
 
 .side-nav__footer {
-    position: absolute;
-    bottom: 0;
     color: $gray-light;
     padding: 30px 10px;
     white-space: nowrap;
