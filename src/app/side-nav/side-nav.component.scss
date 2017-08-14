@@ -20,7 +20,11 @@
 }
 
 .side-nav__footer {
+    position: absolute;
+    bottom: 0;
     color: $gray-light;
+    padding: 30px 10px;
+    white-space: nowrap;
 
     .mdi-heart,
     .steemit-icon {
