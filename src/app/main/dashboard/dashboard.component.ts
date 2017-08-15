@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.userService.user$.subscribe(user => this.updateAll(user));
-        this.steemService.global$.subscribe(console.log);
     }
 
     resetDisplayValues() {

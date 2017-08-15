@@ -6,5 +6,7 @@
         <span class="user-info__reputation">({{user.reputation | reputation:1}})</span>
     </span>
 
-    <span class="user-info__steempower"></span>
+    <span class="user-info__steempower">
+        {{user.vesting_shares | steemPower}}
+    </span>
 </div>

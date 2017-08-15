@@ -16,4 +16,11 @@
         color: $gray-light;
         font-weight: 300;
     }
+
+    &__steempower {
+        color: $gray-light;
+        display: block;
+        font-size: $font-size-sm;
+        line-height: 2;
+    }
 }
