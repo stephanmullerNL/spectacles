@@ -29,7 +29,9 @@ export class UserService {
     }
 
     private transform(user: User): User {
-        user.profile = JSON.parse(user.json_metadata).profile;
+        const metadata = user.json_metadata ? JSON.parse(user.json_metadata) : {};
+
+        user.profile = metadata.profile || {};
 
         return user;
     }
