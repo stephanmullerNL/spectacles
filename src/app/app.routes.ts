@@ -5,6 +5,7 @@ import {UserResolver} from './user/user-resolver.service';
 import {DashboardComponent} from './main/dashboard/dashboard.component';
 import {FollowersComponent} from './main/followers/followers.component';
 import {UpvotesComponent} from './main/upvotes/upvotes.component';
+import {SteemResolver} from './steem-resolver.service';
 
 
 export const AppRoutes: Routes = [
@@ -16,10 +17,10 @@ export const AppRoutes: Routes = [
         path: ':username',
         component: MainComponent,
         resolve: {
+            global: SteemResolver,
             user: UserResolver
         },
         children: [
-            // {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
             {
                 path: '',
                 component: DashboardComponent

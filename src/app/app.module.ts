@@ -22,6 +22,8 @@ import {UserInfoComponent} from './user-info/user-info.component';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
 import {PostsService} from './user/posts.service';
+import {SteemResolver} from "app/steem-resolver.service";
+import {SteemService} from './steem.service';
 
 @NgModule({
     declarations: [
@@ -48,6 +50,8 @@ import {PostsService} from './user/posts.service';
         FollowersService,
         FollowersResolver,
         PostsService,
+        SteemResolver,
+        SteemService,
         UserService,
         UserResolver
     ],

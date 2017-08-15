@@ -4,6 +4,7 @@ import {User} from '../../models/user';
 import {UserFollowCount} from '../../models/userFollowCount';
 import {FollowersService} from '../../user/followers.service';
 import {PostsService} from '../../user/posts.service';
+import {SteemService} from '../../steem.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -45,11 +46,13 @@ export class DashboardComponent implements OnInit {
 
     constructor(private followersService: FollowersService,
                 private postsService: PostsService,
+                private steemService: SteemService,
                 private userService: UserService) {
     }
 
     ngOnInit() {
         this.userService.user$.subscribe(user => this.updateAll(user));
+        this.steemService.global$.subscribe(console.log);
     }
 
     resetDisplayValues() {
