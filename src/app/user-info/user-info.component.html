@@ -9,4 +9,12 @@
     <span class="user-info__steempower">
         {{user.vesting_shares | steemPower}}
     </span>
+
+    <progress class="user-info__voting-power-bar"
+              value="{{user.voting_power}}"
+              max="10000">
+    </progress>
+    <span class="user-info__voting-power">
+        {{user.voting_power / 100}}% voting power
+    </span>
 </div>
