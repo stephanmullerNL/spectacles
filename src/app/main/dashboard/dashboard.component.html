@@ -63,7 +63,8 @@
                     <td>{{follower.upvotes}}</td>
                     <td>{{follower.comments}}</td>
                     <td>{{follower.frequency}}</td>
-                    <td>${{follower.avgReward}}</td>
+                    <td>${{follower.avgReward | reward}}</td>
+                    <td>${{follower.reward | reward}}</td>
                     <td></td>
                 </tr>
             </table>

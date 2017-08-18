@@ -25,6 +25,7 @@ import {PostsService} from './user/posts.service';
 import {SteemResolver} from "app/steem-resolver.service";
 import {SteemService} from './steem.service';
 import { SteemPowerPipe } from './steem-power.pipe';
+import { RewardPipe } from './reward.pipe';
 
 @NgModule({
     declarations: [
@@ -39,7 +40,8 @@ import { SteemPowerPipe } from './steem-power.pipe';
         HomeComponent,
         SideNavComponent,
         CardComponent,
-        SteemPowerPipe
+        SteemPowerPipe,
+        RewardPipe
     ],
     imports: [
         BrowserModule,
