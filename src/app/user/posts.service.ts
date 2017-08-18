@@ -1,14 +1,12 @@
 import {Injectable} from '@angular/core';
 import * as Steem from 'steem';
+import {VoteCounter} from '../models/voteCounter';
 
 @Injectable()
 export class PostsService {
 
     constructor() {
     }
-
-    // Steem.api.getAccountVotes('pilcrow')
-    //     .then(res => console.log(res));
 
     getPostCommentersAsync(posts) {
         const promises = posts.map(post => {
@@ -29,10 +27,15 @@ export class PostsService {
         return Steem.api.getContentReplies(post.author, post.permlink);
     }
 
-    getPostUpvoters(posts) {
+    getPostUpvoteCounts(posts) {
         return posts.reduce((all, post) => {
-            post.active_votes.forEach(voter => {
-                all[voter.voter] = (all[voter.voter] || 0) + 1;
+            post.active_votes.forEach(vote => {
+                const voteCounter = all[vote.voter] || new VoteCounter();
+
+                voteCounter.count++;
+                voteCounter.rshares += Number(vote.rshares);
+
+                all[vote.voter] = voteCounter;
             });
             return all;
         }, {});
