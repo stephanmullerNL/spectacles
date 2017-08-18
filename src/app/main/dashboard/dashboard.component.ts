@@ -5,6 +5,7 @@ import {UserFollowCount} from '../../models/userFollowCount';
 import {FollowersService} from '../../user/followers.service';
 import {PostsService} from '../../user/posts.service';
 import {SteemService} from '../../steem.service';
+import {VoteCounter} from '../../models/voteCounter';
 
 @Component({
     selector: 'app-dashboard',
@@ -46,7 +47,6 @@ export class DashboardComponent implements OnInit {
 
     constructor(private followersService: FollowersService,
                 private postsService: PostsService,
-                private steemService: SteemService,
                 private userService: UserService) {
     }
 
@@ -84,18 +84,19 @@ export class DashboardComponent implements OnInit {
     }
 
     private async extendFollowersAsync(followers) {
-        const upvoters = this.postsService.getPostUpvoters(this.posts);
+        const upvoters = this.postsService.getPostUpvoteCounts(this.posts);
         const commenters = await this.postsService.getPostCommentersAsync(this.posts);
 
         return followers.map(follower => {
-            const upvotes = upvoters[follower.follower] || 0;
+            const upvotes = upvoters[follower.follower] || new VoteCounter();
             const comments = commenters[follower.follower] || 0;
 
             return Object.assign({}, follower, {
-                upvotes: upvotes,
+                upvotes: upvotes.count,
                 comments: comments,
-                frequency: ((upvotes + comments) / this.posts.length).toFixed(2),
-                avgReward: Math.random().toFixed(2)
+                frequency: ((upvotes.count + comments) / this.posts.length).toFixed(2),
+                avgReward: upvotes.rshares / (upvotes.count || 1),
+                reward: upvotes.rshares
             });
         });
     }
