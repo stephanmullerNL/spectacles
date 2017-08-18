@@ -17,7 +17,7 @@ export const AppRoutes: Routes = [
         path: ':username',
         component: MainComponent,
         resolve: {
-            global: SteemResolver,
+            steem: SteemResolver,
             user: UserResolver
         },
         children: [
