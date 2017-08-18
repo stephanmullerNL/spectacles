@@ -9,6 +9,10 @@ export class SteemResolver implements Resolve<any> {
     }
 
     resolve(): Promise<any> {
-        return this.steemService.getDynamicGlobalProperties();
+        return Promise.all([
+            this.steemService.getDynamicGlobalProperties(),
+            this.steemService.getFeedHistory(),
+            this.steemService.getRewardFund()
+        ]);
     }
 }
