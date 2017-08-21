@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../user/user.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {FollowersService} from '../user/followers.service';
+import {PostsService} from '../user/posts.service';
 
 @Component({
     templateUrl: './main.component.html',
@@ -9,13 +11,22 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 export class MainComponent implements OnInit {
     user;
 
-    // temp
-    show: false;
+    ready = false;
 
-    constructor(private userService: UserService) {
+    constructor(private followersService: FollowersService,
+        private postsService: PostsService,
+        private userService: UserService) {
     }
 
     ngOnInit() {
-        this.userService.user$.subscribe(user => this.user = user);
+        this.userService.user$.subscribe(user => {
+            this.user = user;
+
+            Promise.all([
+                this.followersService.fetchAllFollowers(user.name),
+                this.followersService.fetchFollowCount(user.name),
+                this.postsService.fetchAllPosts(user.name)
+            ]).then(() => this.ready = true);
+        });
     }
 }

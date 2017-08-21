@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user/user.service';
 import {User} from '../../models/user';
-import {UserFollowCount} from '../../models/userFollowCount';
+import {FollowCount} from '../../models/followers';
 import {FollowersService} from '../../user/followers.service';
 import {PostsService} from '../../user/posts.service';
-import {SteemService} from '../../steem.service';
 import {VoteCounter} from '../../models/voteCounter';
 
 @Component({
@@ -38,10 +37,12 @@ export class DashboardComponent implements OnInit {
 
     ];
 
-    followCount = new UserFollowCount();
+    allPostUpvotes = [];
+    followCount = new FollowCount();
     followers = [];
     following = [];
     posts = [];
+    upvotesByMonth = [];
 
     user = new User();
 
@@ -51,40 +52,27 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.user$.subscribe(user => this.updateAll(user));
+        this.userService.user$.subscribe(this.updateAll.bind(this));
     }
 
-    resetDisplayValues() {
-        this.followers = [];
-        this.followCount = new UserFollowCount();
-    }
+    private updateAll(user: User) {
+        const followers = this.followersService.getFollowers();
 
-    private updateAll(user) {
-        this.resetDisplayValues();
-
+        this.followCount = this.followersService.getFollowCount();
+        this.posts = this.postsService.getPosts();
         this.user = user;
 
-        const promises = [
-            this.followersService.getFollowCount(user.name),
-            this.followersService.getFollowers(user.name),
-            this.postsService.getPostsByUserAsync(user.name)
-        ];
+        this.allPostUpvotes = this.postsService.getAllPostUpvotes(this.posts);
+        this.upvotesByMonth = this.postsService.groupUpvotesByMonth(this.allPostUpvotes);
 
-        Promise.all(promises).then(([followCount, followers, posts]) => {
-            this.followCount = followCount;
-            this.posts = posts;
-
-            this.extendFollowersAsync(followers).then(result => {
-                this.followers = result;
-
-                // Do this in ngFor later
-                this.followers.sort((a, b) => b.frequency - a.frequency);
-            });
+        this.extendFollowersAsync(followers).then((result) => {
+            // Do this in ngFor later
+            this.followers = result.sort((a, b) => b.frequency - a.frequency);
         });
     }
 
     private async extendFollowersAsync(followers) {
-        const upvoters = this.postsService.getPostUpvoteCounts(this.posts);
+        const upvoters = this.postsService.groupUpvotesByUser(this.allPostUpvotes);
         const commenters = await this.postsService.getPostCommentersAsync(this.posts);
 
         return followers.map(follower => {

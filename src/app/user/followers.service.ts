@@ -1,20 +1,34 @@
 import * as Steem from 'steem';
 import {Injectable} from '@angular/core';
-import {UserFollowCount} from '../models/userFollowCount';
-import {User} from '../models/user';
+import {Follower, FollowCount} from '../models/followers';
 
 @Injectable()
 export class FollowersService {
 
+    private followers: Follower[];
+    private followCount: FollowCount;
+
     constructor() {
     }
 
-    getFollowCount(username: string): Promise<UserFollowCount> {
-        return Steem.api.getFollowCount(username);
+    fetchAllFollowers(username: string): void {
+        Steem.api.getFollowers(username, 0, 'blog', 1000).then(followers => {
+            this.followers = followers;
+        });
     }
 
-    getFollowers(username: string) {
-        return Steem.api.getFollowers(username, 0, 'blog', 1000);
+    fetchFollowCount(username: string): Promise<FollowCount> {
+        return Steem.api.getFollowCount(username).then(followCount => {
+            this.followCount = followCount;
+        });
+    }
+
+    getFollowCount(): FollowCount {
+        return this.followCount;
+    }
+
+    getFollowers(): Follower[] {
+        return this.followers;
     }
 
     getFollowing(username: string) {
