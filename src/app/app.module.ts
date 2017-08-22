@@ -10,7 +10,6 @@ import {CardComponent} from './card/card.component';
 import {DashboardComponent} from './main/dashboard/dashboard.component';
 import {FindUserComponent} from './find-user/find-user.component';
 import {FollowersComponent} from './main/followers/followers.component';
-import {FollowersResolver} from './user/followers-resolver.service';
 import {FollowersService} from './user/followers.service';
 import {HomeComponent} from './home/home.component';
 import {MainComponent} from './main/main.component';
@@ -22,10 +21,10 @@ import {UserInfoComponent} from './user-info/user-info.component';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
 import {PostsService} from './user/posts.service';
-import {SteemResolver} from "app/steem-resolver.service";
+import {SteemResolver} from 'app/steem-resolver.service';
 import {SteemService} from './steem.service';
-import { SteemPowerPipe } from './steem-power.pipe';
-import { RewardPipe } from './reward.pipe';
+import {SteemPowerPipe} from './steem-power.pipe';
+import {RewardPipe} from './reward.pipe';
 
 @NgModule({
     declarations: [
@@ -52,7 +51,6 @@ import { RewardPipe } from './reward.pipe';
     ],
     providers: [
         FollowersService,
-        FollowersResolver,
         PostsService,
         SteemResolver,
         SteemService,
