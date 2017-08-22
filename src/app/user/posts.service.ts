@@ -8,9 +8,9 @@ export class PostsService {
     constructor() {
     }
 
-    getPostCommentersAsync(posts) {
+    getPostCommenters(posts) {
         const promises = posts.map(post => {
-            return this.getPostCommentsAsync(post);
+            return this.getPostComments(post);
         });
 
         return Promise.all(promises).then((results: any[][]) => {
@@ -23,7 +23,7 @@ export class PostsService {
         });
     }
 
-    getPostCommentsAsync(post) {
+    getPostComments(post) {
         return Steem.api.getContentReplies(post.author, post.permlink);
     }
 

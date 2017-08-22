@@ -26,6 +26,7 @@ import {SteemResolver} from "app/steem-resolver.service";
 import {SteemService} from './steem.service';
 import { SteemPowerPipe } from './steem-power.pipe';
 import { RewardPipe } from './reward.pipe';
+import { UpvoteChartComponent } from './upvote-chart/upvote-chart.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { RewardPipe } from './reward.pipe';
         SideNavComponent,
         CardComponent,
         SteemPowerPipe,
-        RewardPipe
+        RewardPipe,
+        UpvoteChartComponent
     ],
     imports: [
         BrowserModule,
