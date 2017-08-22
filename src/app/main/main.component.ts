@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
 
     ngOnInit() {
         this.userService.user$.subscribe(user => {
+            this.ready = false;
             this.user = user;
 
             Promise.all([

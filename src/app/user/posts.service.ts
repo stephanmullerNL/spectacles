@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import * as Steem from 'steem';
 import {VoteCounter} from '../models/voteCounter';
 import {Post} from 'app/models/post';
+import {Follower} from '../models/followers';
 
 @Injectable()
 export class PostsService {
@@ -13,7 +14,7 @@ export class PostsService {
 
     fetchAllPosts(username: string): Promise<Array<Post>> {
         // Date string gets ignored, but set it to a far future just to be sure
-        return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 100)
+        return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 20)
             .then(posts => {
                 this.posts = posts;
             });
@@ -25,7 +26,7 @@ export class PostsService {
         }, []);
     }
 
-    getPostCommentersAsync(posts) {
+    getPostCommenters(posts: Post[], followers: Follower[] = []) {
         const promises = posts.map(post => {
             return this.getPostCommentsAsync(post);
         });
