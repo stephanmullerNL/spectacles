@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private async extendFollowersAsync(followers) {
-        const upvoters = this.postsService.groupUpvotesByUser(this.allPostUpvotes);
+        const upvoters = this.postsService.getAllPostUpvotes(this.posts);
         const commenters = await this.postsService.getPostCommenters(this.posts);
 
         return followers.map(follower => {
