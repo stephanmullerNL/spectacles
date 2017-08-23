@@ -1,10 +1,10 @@
-import { BinocularsPage } from './app.po';
+import { SpectaclesPage } from './app.po';
 
-describe('binoculars App', () => {
-  let page: BinocularsPage;
+describe('spectacles App', () => {
+  let page: SpectaclesPage;
 
   beforeEach(() => {
-    page = new BinocularsPage();
+    page = new SpectaclesPage();
   });
 
   it('should display message saying app works', () => {
