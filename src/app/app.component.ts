@@ -18,7 +18,6 @@ export class AppComponent {
             }
             return true;
         }).subscribe((event: NavigationEnd) => {
-            console.log('tracking?', event.url);
             ga('set', 'page', event.url);
             ga('send', 'pageview');
         });
