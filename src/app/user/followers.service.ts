@@ -14,7 +14,16 @@ export class FollowersService {
     }
 
     getFollowers(username: string) {
-        return Steem.api.getFollowers(username, 0, 'blog', 1000);
+        async function fetch(all = [], start = '') {
+            const newData = await Steem.api.getFollowers(username, start, 'blog', 1000);
+            const lastUser = newData[newData.length - 1];
+
+            all = all.concat(newData);
+
+            return (newData.length === 1000) ? await fetch(all, lastUser.follower) : all;
+        }
+
+        return fetch();
     }
 
     getFollowing(username: string) {
