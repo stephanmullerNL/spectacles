@@ -22,11 +22,11 @@ import {UserInfoComponent} from './user-info/user-info.component';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
 import {PostsService} from './user/posts.service';
-import {SteemResolver} from "app/steem-resolver.service";
+import {SteemResolver} from 'app/steem-resolver.service';
 import {SteemService} from './steem.service';
-import { SteemPowerPipe } from './steem-power.pipe';
-import { RewardPipe } from './reward.pipe';
-import { UpvoteChartComponent } from './upvote-chart/upvote-chart.component';
+import {SteemPowerPipe} from './steem-power.pipe';
+import {RewardPipe} from './reward.pipe';
+import {UpvoteChartComponent} from './upvote-chart/upvote-chart.component';
 
 @NgModule({
     declarations: [
