@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user/user.service';
 import {User} from '../../models/user';
-import {FollowCount} from '../../models/followers';
+import {FollowCount, Follower} from '../../models/followers';
 import {FollowersService} from '../../user/followers.service';
 import {PostsService} from '../../user/posts.service';
 import {VoteCounter} from '../../models/voteCounter';
+import {Post} from '../../models/post';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,11 +13,11 @@ import {VoteCounter} from '../../models/voteCounter';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+    private posts: Post[] = [];
+
     allPostUpvotes = [];
     followCount = new FollowCount();
     followers = [];
-    following = [];
-    posts = [];
     upvotesByMonth = [];
 
     user = new User();
@@ -27,18 +28,14 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.user$.subscribe(this.updateAll.bind(this));
+        this.followersService.followCount$.subscribe(this.onFollowCountUpdate);
+        this.followersService.followers$.subscribe(this.onFollowersUpdate);
+        this.postsService.posts$.subscribe(this.onPostsUpdate);
+        this.userService.user$.subscribe(this.onUserUpdate);
     }
 
-    private updateAll(user: User) {
-        const followers = this.followersService.getFollowers();
-
-        this.followCount = this.followersService.getFollowCount();
-        this.posts = this.postsService.getPosts();
-        this.user = user;
-
-        this.allPostUpvotes = this.postsService.getAllPostUpvotes(this.posts);
-        this.upvotesByMonth = this.postsService.groupUpvotesByMonth(this.allPostUpvotes);
+    private onFollowersUpdate(followers: Follower[]) {
+        this.followers = followers;
 
         this.extendFollowersAsync(followers).then((result) => {
             // Do this in ngFor later
@@ -46,9 +43,26 @@ export class DashboardComponent implements OnInit {
         });
     }
 
+    private onFollowCountUpdate(followCount: FollowCount) {
+        this.followCount = followCount;
+    }
+
+    private onPostsUpdate(posts: Post[]) {
+        this.posts = posts;
+        this.allPostUpvotes = this.postsService.getAllPostUpvotes(posts);
+    }
+
+    private onUserUpdate(user: User) {
+        this.user = user;
+    }
+
+    private updateAll() {
+        this.upvotesByMonth = this.postsService.groupUpvotesByMonth(this.allPostUpvotes);
+    }
+
     private async extendFollowersAsync(followers) {
         const upvoters = this.postsService.groupUpvotesByUser(this.allPostUpvotes);
-        const commenters = await this.postsService.getPostCommenters(this.posts, followers);
+        const commenters = await this.postsService.getPostCommenters(this.posts);
 
         return followers.map(follower => {
             const upvotes = upvoters[follower.follower] || new VoteCounter();
