@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../user/user.service';
 import {User} from '../../models/user';
-import {UserFollowCount} from '../../models/userFollowCount';
+import {FollowCount, Follower} from '../../models/followers';
 import {FollowersService} from '../../user/followers.service';
 import {PostsService} from '../../user/posts.service';
 import {VoteCounter} from '../../models/voteCounter';
+import {Post} from '../../models/post';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,12 +14,8 @@ import {VoteCounter} from '../../models/voteCounter';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    allPostUpvotes = [];
-    followCount = new UserFollowCount();
-    followers = [];
-    following = [];
-    posts = [];
-
+    followCount = new FollowCount();
+    mostLoyal: Follower[] = [];
     user = new User();
 
     constructor(private followersService: FollowersService,
@@ -26,53 +24,51 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.user$.subscribe(user => this.updateAll(user));
+        this.userService.currentUser$.subscribe(user => {
+            this.user = user;
+
+            // There must be a better way to do this
+            this.updateAll([[], [], [], []]);
+        });
+
+        Observable.zip(
+            this.followersService.followCount$,
+            this.followersService.followers$,
+            this.postsService.comments$,
+            this.postsService.posts$
+        )
+
+            .subscribe(this.updateAll.bind(this));
+
     }
 
-    resetDisplayValues() {
-        this.followers = [];
-        this.followCount = new UserFollowCount();
-    }
+    private updateAll([followCount, followers, comments, posts]) {
+        const allPosts = posts.concat(comments);
+        const upvotes = this.postsService.getAllPostUpvotes(allPosts);
 
-    private updateAll(user) {
-        this.resetDisplayValues();
+        this.followCount = followCount;
 
-        this.user = user;
-
-        const promises = [
-            this.followersService.getFollowCount(user.name),
-            this.followersService.getFollowers(user.name),
-            this.postsService.getPostsByUserAsync(user.name)
-        ];
-
-        Promise.all(promises).then(([followCount, followers, posts]) => {
-            this.followCount = followCount;
-            this.posts = posts;
-
-            this.extendFollowersAsync(followers).then(result => {
-                this.followers = result;
-
-                // Do this in ngFor later
-                this.followers.sort((a, b) => b.frequency - a.frequency);
-            });
+        this.extendFollowersAsync(followers, allPosts, upvotes).then(result => {
+            this.mostLoyal = result;
         });
     }
 
-    private async extendFollowersAsync(followers) {
-        const upvoters = this.postsService.getPostUpvoteCounts(this.posts);
-        const commenters = await this.postsService.getPostCommenters(this.posts);
+    private async extendFollowersAsync(followers, posts, upvotes) {
+        const commenters = await this.postsService.getPostCommenters(posts);
+        const upvoters = this.postsService.groupUpvotesByUser(upvotes);
 
         return followers.map(follower => {
-            const upvotes = upvoters[follower.follower] || new VoteCounter();
+            const coteCount = upvoters[follower.follower] || new VoteCounter();
             const comments = commenters[follower.follower] || 0;
-
-            return Object.assign({}, follower, {
-                upvotes: upvotes.count,
+            return {
+                name: follower.follower,
+                upvotes: coteCount.count,
                 comments: comments,
-                frequency: ((upvotes.count + comments) / this.posts.length).toFixed(2),
-                avgReward: upvotes.rshares / (upvotes.count || 1),
-                reward: upvotes.rshares
-            });
-        });
+                frequency: ((coteCount.count + comments) / posts.length).toFixed(2),
+                avgReward: coteCount.rshares / (coteCount.count || 1),
+                reward: coteCount.rshares
+            };
+        }).filter(follower => follower.frequency > 0)
+            .sort((a, b) => b.frequency - a.frequency);
     }
 }

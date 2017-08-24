@@ -1,10 +1,13 @@
-import {UserFollowCount} from './userFollowCount';
+import {FollowCount} from './followers';
 
 export class User {
-    followCount: UserFollowCount;
     json_metadata: string;
     name: string;
+    reputation: string;
+    vesting_shares: string;
 
     // todo: UserProfile
-    profile: any;
+    profile: {
+        profile_image?: string
+    };
 }

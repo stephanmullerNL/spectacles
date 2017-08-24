@@ -17,7 +17,7 @@ export class FindUserComponent {
     }
 
     getUserInfo(username: string): void {
-        this.userService.getUser(username)
+        this.userService.fetchCurrentUser(username)
             .then((user: User) => {
                 this.router.navigate(['/', `@${user.name}`]);
             })

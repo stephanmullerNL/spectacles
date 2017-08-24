@@ -20,10 +20,10 @@
     <div class="col-md-4">
         <app-card [icon]="'crown'"
                   [iconColor]="'yellow'"
-                  [value]="followers.length ? '@' + followers[0].follower : ''"
+                  [value]="mostLoyal.length ? '@' + mostLoyal[0].name : ''"
                   [title]="'most loyal'"
-                  [description]="'Every ' + (followers[0] || {}).frequency + ' post'"
-                  [ready]="followers[0]">
+                  [description]="'Every ' + (mostLoyal[0] || {}).frequency + ' post'"
+                  [ready]="mostLoyal[0]">
         </app-card>
     </div>
 </div>
@@ -49,13 +49,13 @@
                     <th>Avg $ upvote</th>
                     <th>Total $ received</th>
                 </tr>
-                <tr *ngFor="let follower of followers">
-                    <td>@{{follower.follower}}</td>
-                    <td>{{follower.upvotes}}</td>
-                    <td>{{follower.comments}}</td>
-                    <td>{{follower.frequency}}</td>
-                    <td>${{follower.avgReward | reward}}</td>
-                    <td>${{follower.reward | reward}}</td>
+                <tr *ngFor="let user of mostLoyal">
+                    <td>@{{user.name}}</td>
+                    <td>{{user.upvotes}}</td>
+                    <td>{{user.comments}}</td>
+                    <td>{{user.frequency}}</td>
+                    <td>${{user.avgReward | reward}}</td>
+                    <td>${{user.reward | reward}}</td>
                     <td></td>
                 </tr>
             </table>
