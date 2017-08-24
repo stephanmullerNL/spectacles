@@ -6,14 +6,14 @@ import {User} from '../models/user';
 @Injectable()
 export class UserService {
 
-    private _user = new BehaviorSubject<User>(new User());
+    private currentUser = new BehaviorSubject<User>(new User());
 
-    user$ = this._user.asObservable();
+    currentUser$ = this.currentUser.asObservable();
 
     constructor() {
     }
 
-    getUser(username: string): Promise<User> {
+    fetchCurrentUser(username: string): Promise<User> {
         const name = username.toLowerCase();
 
         return Steem.api.getAccounts([name])
@@ -22,10 +22,13 @@ export class UserService {
                     throw new Error(`User ${username} not found`);
                 } else {
                     const user = this.transform(users[0]);
-                    this._user.next(user);
-                    return this.transform(users[0]);
+                    this.currentUser.next(user);
                 }
             });
+    }
+
+    getUsers(users) {
+        return Steem.api.getAccounts(users);
     }
 
     private transform(user: User): User {

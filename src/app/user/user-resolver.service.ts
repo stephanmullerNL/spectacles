@@ -4,6 +4,7 @@ import {
     ActivatedRouteSnapshot
 } from '@angular/router';
 import {UserService} from './user.service';
+import {User} from '../models/user';
 
 
 @Injectable()
@@ -12,10 +13,10 @@ export class UserResolver implements Resolve<any> {
                 private router: Router) {
     }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> {
-        const username = route.paramMap.get('username').substr(1);
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<User> {
+        const username: string = route.paramMap.get('username').substr(1);
 
-        return this.userService.getUser(username).catch(error => {
+        return this.userService.fetchCurrentUser(username).catch(error => {
             this.router.navigate(['/oops', error]);
         });
     }
