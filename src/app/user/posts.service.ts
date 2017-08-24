@@ -7,18 +7,33 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class PostsService {
 
-    private _posts = new BehaviorSubject<Post[]>([]);
+    private comments = new BehaviorSubject<Post[]>([]);
+    private posts = new BehaviorSubject<Post[]>([]);
 
-    posts$ = this._posts.asObservable();
+    comments$ = this.comments.asObservable();
+    posts$ = this.posts.asObservable();
 
     constructor() {
     }
 
     fetchAllPosts(username: string): Promise<void> {
         // Date string gets ignored, but set it to a far future just to be sure
-        return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 20)
+        return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 2)
             .then((posts: Post[]) => {
-                this._posts.next(posts);
+                this.posts.next(posts);
+            });
+    }
+
+    fetchAllComments(username: string): Promise<void> {
+        const query = {
+            limit: 2,
+            start_author: username
+        };
+
+        return Steem.api.getDiscussionsByComments(query)
+            .then((posts: Post[]) => {
+            console.log('comments', posts);
+                this.comments.next(posts);
             });
     }
 
