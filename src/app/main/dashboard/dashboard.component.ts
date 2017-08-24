@@ -38,17 +38,16 @@ export class DashboardComponent implements OnInit {
             this.postsService.posts$
         )
 
-        .subscribe(this.updateAll.bind(this));
+            .subscribe(this.updateAll.bind(this));
 
     }
 
     private updateAll([followCount, followers, comments, posts]) {
-console.log(followCount, followers, comments, posts);
         const allPosts = posts.concat(comments);
         const upvotes = this.postsService.getAllPostUpvotes(allPosts);
 
         this.followCount = followCount;
-console.log(allPosts, upvotes);
+
         this.extendFollowersAsync(followers, allPosts, upvotes).then(result => {
             this.mostLoyal = result;
         });
@@ -69,6 +68,7 @@ console.log(allPosts, upvotes);
                 avgReward: coteCount.rshares / (coteCount.count || 1),
                 reward: coteCount.rshares
             };
-        }).sort((a, b) => b.frequency - a.frequency);
+        }).filter(follower => follower.frequency > 0)
+            .sort((a, b) => b.frequency - a.frequency);
     }
 }

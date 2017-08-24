@@ -18,7 +18,7 @@ export class PostsService {
 
     fetchAllPosts(username: string): Promise<void> {
         // Date string gets ignored, but set it to a far future just to be sure
-        return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 2)
+        return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 100)
             .then((posts: Post[]) => {
                 this.posts.next(posts);
             });
@@ -26,7 +26,7 @@ export class PostsService {
 
     fetchAllComments(username: string): Promise<void> {
         const query = {
-            limit: 2,
+            limit: 100,
             start_author: username
         };
 
