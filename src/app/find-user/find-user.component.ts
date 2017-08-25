@@ -17,9 +17,9 @@ export class FindUserComponent {
     }
 
     getUserInfo(username: string): void {
-        this.userService.fetchCurrentUser(username)
-            .then((user: User) => {
-                this.router.navigate(['/', `@${user.name}`]);
+        this.userService.lookupAccountNames([username])
+            .then((accounts: User[]) => {
+                this.router.navigate(['/', `@${accounts[0].name}`]);
             })
             .catch((error) => {
                 this.error.emit(error);

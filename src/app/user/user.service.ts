@@ -31,6 +31,10 @@ export class UserService {
         return Steem.api.getAccounts(users);
     }
 
+    lookupAccountNames(names: string[]): Promise<User[]> {
+        return Steem.api.lookupAccountNames(names);
+    }
+
     private transform(user: User): User {
         const metadata = user.json_metadata ? JSON.parse(user.json_metadata) : {};
 
