@@ -27,6 +27,22 @@ export class UserService {
             });
     }
 
+    getLastActivity(user: User) {
+        const toSortableDate = string => Number(string.substr(0, 10).replace('-', ''));
+
+        const lastPost = toSortableDate(user.last_post);
+        const lastVote = toSortableDate(user.last_vote_time);
+
+        return lastPost > lastVote ? user.last_post : user.last_vote_time;
+    }
+
+    getTotalShares(user: User) {
+        const toNumber = str => Number(str.split(' ')[0]);
+
+        return toNumber(user.vesting_shares) + toNumber(user.delegated_vesting_shares)
+            - toNumber(user.received_vesting_shares);
+    }
+
     getUsers(users) {
         return Steem.api.getAccounts(users);
     }

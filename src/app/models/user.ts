@@ -20,7 +20,7 @@ export class UserProfile {
 export class UserStats {
     avgReward: number;
     comments: number;
-    frequency: string;
+    frequency: number;
     lastActive: string;
     reward: number;
     totalShares: number;

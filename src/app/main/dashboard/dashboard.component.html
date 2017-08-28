@@ -53,7 +53,7 @@
                     <td>@{{user.name}}</td>
                     <td>{{user.stats.upvotes}}</td>
                     <td>{{user.stats.comments}}</td>
-                    <td>{{user.stats.frequency}}</td>
+                    <td>{{user.stats.frequency.toFixed(2)}}</td>
                     <td>${{user.stats.avgReward | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
                     <td></td>
@@ -80,7 +80,7 @@
                 <tr *ngFor="let user of mostInfluential">
                     <td>@{{user.name}}</td>
                     <td>{{user.stats.totalShares | steemPower}}</td>
-                    <td>{{user.stats.frequency}}</td>
+                    <td>{{user.stats.frequency.toFixed(2)}}</td>
                     <td>${{user.stats.avgReward | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
                     <td>{{user.stats.lastActive.substr(0, 10)}}</td>

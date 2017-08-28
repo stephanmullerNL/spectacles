@@ -58,28 +58,15 @@ export class PostsService {
         return Steem.api.getContentReplies(post.author, post.permlink);
     }
 
-    countPostsByAuthour(comments) {
-        return comments.reduce((counter, comment) => {
-            const count = counter.get(comment.author) || 0;
-            return counter.set(count + 1);
+    countPostsByAuthour(posts) {
+        return posts.reduce((counter, post) => {
+            const count = counter.get(post.author) || 0;
+            return counter.set(post.author, count + 1);
         }, new Map());
     }
 
-    groupUpvotesByMonth(upvotes) {
-        return upvotes.reduce((all, upvote) => {
-            const month = upvote.time.substr(0, 7);
-            const voteCounter = all[month] || new VoteCounter();
 
-            voteCounter.count++;
-            voteCounter.rshares += Number(upvote.rshares);
-
-            all[month] = voteCounter;
-
-            return all;
-        }, {});
-    }
-
-    groupUpvotesByUser(upvotes) {
+    countUpvotesByUser(upvotes) {
         return upvotes.reduce((all, upvote) => {
             const voteCounter = all.get(upvote.voter) || new VoteCounter();
 
@@ -89,13 +76,6 @@ export class PostsService {
             all.set(upvote.voter, voteCounter);
 
             return all;
-        }, new Map());
-    }
-
-    countByProperty(objects, key) {
-        return objects.reduce((all, object) => {
-            const count = all.get(object[key]) || 0;
-            return count.set(count + 1);
         }, new Map());
     }
 }
