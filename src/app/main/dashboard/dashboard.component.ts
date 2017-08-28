@@ -5,7 +5,6 @@ import {FollowCount, Follower} from '../../models/followers';
 import {FollowersService} from '../../user/followers.service';
 import {PostsService} from '../../user/posts.service';
 import {VoteCounter} from '../../models/voteCounter';
-import {Post} from '../../models/post';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
@@ -16,7 +15,7 @@ import {Observable} from 'rxjs/Rx';
 export class DashboardComponent implements OnInit {
     followCount = new FollowCount();
     mostInfluential: User[] = [];
-    mostLoyal: Follower[] = [];
+    mostLoyal: User[] = [];
     currentUser = new User();
 
     constructor(private followersService: FollowersService,
@@ -38,6 +37,12 @@ export class DashboardComponent implements OnInit {
             this.postsService.comments$,
             this.postsService.posts$
         ).subscribe(result => this.updateAll(result));
+    }
+
+    getTopFrequency(): string {
+        return this.mostLoyal.length
+            ? this.mostLoyal[0].stats.frequency.toString()
+            : '-';
     }
 
     private updateAll([followCount, followers, comments, posts]) {

@@ -22,7 +22,7 @@
                   [iconColor]="'yellow'"
                   [value]="mostLoyal.length ? '@' + mostLoyal[0].name : ''"
                   [title]="'most loyal'"
-                  [description]="'Every ' + (mostLoyal[0] || {}).frequency + ' post'"
+                  [description]="'Every ' + getTopFrequency() + ' post'"
                   [ready]="mostLoyal.length">
         </app-card>
     </div>

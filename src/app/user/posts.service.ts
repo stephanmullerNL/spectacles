@@ -34,7 +34,7 @@ export class PostsService {
 
         return Steem.api.getDiscussionsByComments(query)
             .then((posts: Post[]) => {
-                this.comments.next(posts);
+                return this.comments.next(posts);
             });
     }
 
