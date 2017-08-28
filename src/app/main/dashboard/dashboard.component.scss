@@ -6,6 +6,10 @@
     overflow: scroll;
 }
 
+.table td {
+    white-space: nowrap;
+}
+
 .most-loyal {
     border-left: 2px solid $blue;
 }

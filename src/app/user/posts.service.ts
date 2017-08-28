@@ -16,6 +16,8 @@ export class PostsService {
     constructor() {
     }
 
+    private toFlatArray = (all, current) => all.concat(current);
+
     fetchAllPosts(username: string): Promise<void> {
         // Date string gets ignored, but set it to a far future just to be sure
         return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 100)
@@ -32,7 +34,6 @@ export class PostsService {
 
         return Steem.api.getDiscussionsByComments(query)
             .then((posts: Post[]) => {
-            console.log('comments', posts);
                 this.comments.next(posts);
             });
     }
@@ -43,23 +44,25 @@ export class PostsService {
         }, []);
     }
 
-    getPostCommenters(posts: Post[]) {
+    getCommentsForPosts(posts: Post[]) {
         const promises = posts.map(post => {
             return this.getPostComments(post);
         });
 
-        return Promise.all(promises).then((results: any[][]) => {
-            return results.reduce((all, comments) => {
-                comments.forEach(comment => {
-                    all[comment.author] = (all[comment.author] || 0) + 1;
-                });
-                return all;
-            }, {});
+        return Promise.all(promises).then(results => {
+            return results.reduce(this.toFlatArray, []);
         });
     }
 
     getPostComments(post) {
         return Steem.api.getContentReplies(post.author, post.permlink);
+    }
+
+    countPostsByAuthour(comments) {
+        return comments.reduce((counter, comment) => {
+            const count = counter.get(comment.author) || 0;
+            return counter.set(count + 1);
+        }, new Map());
     }
 
     groupUpvotesByMonth(upvotes) {
@@ -78,14 +81,21 @@ export class PostsService {
 
     groupUpvotesByUser(upvotes) {
         return upvotes.reduce((all, upvote) => {
-            const voteCounter = all[upvote.voter] || new VoteCounter();
+            const voteCounter = all.get(upvote.voter) || new VoteCounter();
 
             voteCounter.count++;
             voteCounter.rshares += Number(upvote.rshares);
 
-            all[upvote.voter] = voteCounter;
+            all.set(upvote.voter, voteCounter);
 
             return all;
-        }, {});
+        }, new Map());
+    }
+
+    countByProperty(objects, key) {
+        return objects.reduce((all, object) => {
+            const count = all.get(object[key]) || 0;
+            return count.set(count + 1);
+        }, new Map());
     }
 }

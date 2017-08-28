@@ -15,8 +15,9 @@ import {Observable} from 'rxjs/Rx';
 })
 export class DashboardComponent implements OnInit {
     followCount = new FollowCount();
+    mostInfluential: User[] = [];
     mostLoyal: Follower[] = [];
-    user = new User();
+    currentUser = new User();
 
     constructor(private followersService: FollowersService,
                 private postsService: PostsService,
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.userService.currentUser$.subscribe(user => {
-            this.user = user;
+            this.currentUser = user;
 
             // There must be a better way to do this
             this.updateAll([[], [], [], []]);
@@ -36,39 +37,68 @@ export class DashboardComponent implements OnInit {
             this.followersService.followers$,
             this.postsService.comments$,
             this.postsService.posts$
-        )
-
-            .subscribe(this.updateAll.bind(this));
-
+        ).subscribe(result => this.updateAll(result));
     }
 
     private updateAll([followCount, followers, comments, posts]) {
         const allPosts = posts.concat(comments);
-        const upvotes = this.postsService.getAllPostUpvotes(allPosts);
 
         this.followCount = followCount;
 
-        this.extendFollowersAsync(followers, allPosts, upvotes).then(result => {
-            this.mostLoyal = result;
+        Observable.zip(
+            this.getFollowerData(followers),
+            this.postsService.getCommentsForPosts(allPosts)
+        ).subscribe(([users, replies]) => {
+            this.createStatistics(followers, allPosts, users, replies);
         });
     }
 
-    private async extendFollowersAsync(followers, posts, upvotes) {
-        const commenters = await this.postsService.getPostCommenters(posts);
+    private createStatistics(followers, posts, users, replies) {
+        const commentCount = this.postsService.countPostsByAuthour(replies);
+        const followerNames = followers.map(follower => follower.follower);
+        const upvotes = this.postsService.getAllPostUpvotes(posts);
         const upvoters = this.postsService.groupUpvotesByUser(upvotes);
+        const toNumber = str => Number(str.split(' ')[0]);
 
-        return followers.map(follower => {
-            const coteCount = upvoters[follower.follower] || new VoteCounter();
-            const comments = commenters[follower.follower] || 0;
-            return {
-                name: follower.follower,
-                upvotes: coteCount.count,
+        const userStats = users.map((user: User) => {
+            const voteCount = upvoters.get(user.name) || new VoteCounter();
+            const comments = commentCount.get(user.name) || 0;
+
+            user.stats = {
+                avgReward: voteCount.rshares / (voteCount.count || 1),
                 comments: comments,
-                frequency: ((coteCount.count + comments) / posts.length).toFixed(2),
-                avgReward: coteCount.rshares / (coteCount.count || 1),
-                reward: coteCount.rshares
+                frequency: ((voteCount.count + comments) / posts.length).toFixed(2),
+                lastActive: this.getLastActivity(user),
+                reward: voteCount.rshares,
+                totalShares: toNumber(user.vesting_shares)
+                 + toNumber(user.delegated_vesting_shares) - toNumber(user.received_vesting_shares),
+                upvotes: voteCount.count
             };
-        }).filter(follower => follower.frequency > 0)
-            .sort((a, b) => b.frequency - a.frequency);
+
+            return user;
+        });
+
+        // temp
+        this.mostLoyal = userStats
+            .filter(user => user.stats.frequency > 0)
+            .sort((a, b) => b.stats.frequency - a.stats.frequency);
+
+        this.mostInfluential = userStats
+            .sort((a, b) => b.stats.totalShares - a.stats.totalShares);
+
+        console.log(this.mostInfluential);
+    }
+
+    private getLastActivity(user: User) {
+        const toNum = string => Number(string.substr(0, 10).replace('-', ''))
+        const lastPost = toNum(user.last_post);
+        const lastVote = toNum(user.last_vote_time);
+
+        return lastPost > lastVote ? user.last_post : user.last_vote_time;
+    }
+
+    private getFollowerData(followers) {
+        const names = followers.map(follower => follower.follower);
+        return this.userService.getUsers(names);
     }
 }

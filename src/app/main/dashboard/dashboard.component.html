@@ -23,7 +23,7 @@
                   [value]="mostLoyal.length ? '@' + mostLoyal[0].name : ''"
                   [title]="'most loyal'"
                   [description]="'Every ' + (mostLoyal[0] || {}).frequency + ' post'"
-                  [ready]="mostLoyal[0]">
+                  [ready]="mostLoyal.length">
         </app-card>
     </div>
 </div>
@@ -51,12 +51,39 @@
                 </tr>
                 <tr *ngFor="let user of mostLoyal">
                     <td>@{{user.name}}</td>
-                    <td>{{user.upvotes}}</td>
-                    <td>{{user.comments}}</td>
-                    <td>{{user.frequency}}</td>
-                    <td>${{user.avgReward | reward}}</td>
-                    <td>${{user.reward | reward}}</td>
+                    <td>{{user.stats.upvotes}}</td>
+                    <td>{{user.stats.comments}}</td>
+                    <td>{{user.stats.frequency}}</td>
+                    <td>${{user.stats.avgReward | reward}}</td>
+                    <td>${{user.stats.reward | reward}}</td>
                     <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h2>Most Influential Followers</h2>
+
+        <div class="block table-wrapper">
+            <table class="table most-loyal">
+                <tr>
+                    <th>User</th>
+                    <th>SP</th>
+                    <th>Interaction frequency</th>
+                    <th>100% upvote value</th>
+                    <th>Total $ received</th>
+                    <th>Last active</th>
+                </tr>
+                <tr *ngFor="let user of mostInfluential">
+                    <td>@{{user.name}}</td>
+                    <td>{{user.stats.totalShares | steemPower}}</td>
+                    <td>{{user.stats.frequency}}</td>
+                    <td>${{user.stats.avgReward | reward}}</td>
+                    <td>${{user.stats.reward | reward}}</td>
+                    <td>{{user.stats.lastActive.substr(0, 10)}}</td>
                 </tr>
             </table>
         </div>

@@ -21,7 +21,9 @@ export class SteemPowerPipe implements PipeTransform {
         return steemPower.toLocaleString() + ' SP';
     }
 
-    private toNumber(string) {
-        return Number(string.split(' ')[0]);
+    private toNumber(input: any) {
+        return (typeof input === 'number')
+            ? input
+            : Number(input.split(' ')[0]);
     }
 }
