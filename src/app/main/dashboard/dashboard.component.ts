@@ -49,7 +49,6 @@ export class DashboardComponent implements OnInit {
 
     private updateAll([followCount, followers, comments, posts]) {
         const allPosts = posts.concat(comments);
-        console.log('all posts', allPosts);
 
         this.followCount = followCount;
 
@@ -70,14 +69,17 @@ export class DashboardComponent implements OnInit {
                 .filter(user => user.stats.frequency === 0);
 
             this.deadFollowers = stats
-                .filter(user => user.stats.lastActivity);
+                .filter(user => {
+                    const now = Date.now();
+                    const month = 1000 * 60 * 60 * 24 * 30;
+
+                    return now - user.stats.lastActivity > month;
+                });
         });
     }
 
     private getUserStats(posts, users, replies) {
-        console.log('replies', replies);
         const commentCount = this.postsService.countPostsByAuthour(replies);
-        console.log('count', commentCount);
         const upvotes = this.postsService.getAllPostUpvotes(posts);
         const upvoteCount = this.postsService.countUpvotesByUser(upvotes);
 

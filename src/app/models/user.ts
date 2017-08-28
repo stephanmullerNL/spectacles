@@ -21,7 +21,7 @@ export class UserStats {
     avgReward: number;
     comments: number;
     frequency: number;
-    lastActive: string;
+    lastActive: number;
     reward: number;
     totalShares: number;
     upvotes: number;

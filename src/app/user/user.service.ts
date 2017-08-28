@@ -27,13 +27,11 @@ export class UserService {
             });
     }
 
-    getLastActivity(user: User) {
-        const toSortableDate = string => Number(string.substr(0, 10).replace('-', ''));
+    getLastActivity(user: User): number {
+        const lastPost = Date.parse(user.last_post);
+        const lastVote = Date.parse(user.last_vote_time);
 
-        const lastPost = toSortableDate(user.last_post);
-        const lastVote = toSortableDate(user.last_vote_time);
-
-        return lastPost > lastVote ? user.last_post : user.last_vote_time;
+        return Math.max(lastPost, lastVote);
     }
 
     getTotalShares(user: User) {
@@ -43,8 +41,10 @@ export class UserService {
             - toNumber(user.received_vesting_shares);
     }
 
-    getUsers(users) {
-        return Steem.api.getAccounts(users);
+    getUsers(userNames: string[]) {
+        return Steem.api.getAccounts(userNames).then((users: User[]) => {
+            return users.map((user: User) => this.transform(user));
+        });
     }
 
     lookupAccountNames(names: string[]): Promise<User[]> {

@@ -29,6 +29,27 @@
 </div>
 
 <div class="row">
+    <div class="col-md-6">
+        <app-card [icon]="'account'"
+                  [iconColor]="'grey'"
+                  [value]="ghostFollowers.length || '0'"
+                  [title]="'ghost followers'"
+                  [description]="'Active Steemians who didn\'t engage with you in the last 100 posts'"
+                  [ready]="ghostFollowers.length || mostLoyal.length">
+        </app-card>
+    </div>
+    <div class="col-md-6">
+        <app-card [icon]="'account'"
+                  [iconColor]="'red'"
+                  [value]="deadFollowers.length || '0'"
+                  [title]="'dead followers'"
+                  [description]="'Followers who haven\'t been active in over a month'"
+                  [ready]="deadFollowers.length || mostLoyal.length">
+        </app-card>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <!--<app-upvote-chart></app-upvote-chart>-->
     </div>
@@ -83,7 +104,7 @@
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
                     <td>${{user.stats.avgReward | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
-                    <td>{{user.stats.lastActive.substr(0, 10)}}</td>
+                    <td>{{user.stats.lastActive | date}}</td>
                 </tr>
             </table>
         </div>
