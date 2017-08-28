@@ -69,11 +69,10 @@ export class DashboardComponent implements OnInit {
                 .filter(user => user.stats.frequency === 0);
 
             this.deadFollowers = stats
-                .filter(user => {
+                .filter((user: User) => {
                     const now = Date.now();
                     const month = 1000 * 60 * 60 * 24 * 30;
-
-                    return now - user.stats.lastActivity > month;
+                    return now - user.stats.lastActive > month;
                 });
         });
     }
