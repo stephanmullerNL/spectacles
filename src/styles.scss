@@ -8,6 +8,14 @@ html {
     font-size: 14px;
 }
 
+app-root:empty {
+    background: url('assets/loading.svg') center center no-repeat;
+    background-size: 100px;
+    display: block;
+    height: 100vh;
+    width: 100vw;
+}
+
 .block {
     background: $card-background;
     margin-top: $grid-gutter-width-base;

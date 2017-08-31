@@ -1,7 +1,6 @@
 <div class="row">
     <div class="col-md-4">
         <app-card [icon]="'account'"
-                  [iconColor]="'green'"
                   [value]="followCount.follower_count"
                   [title]="'followers'"
                   [description]="'Your Steemit fans'"
@@ -10,7 +9,6 @@
     </div>
     <div class="col-md-4">
         <app-card [icon]="'account'"
-                  [iconColor]="'green'"
                   [value]="followCount.following_count"
                   [title]="'following'"
                   [description]="'Your role models'"
@@ -19,7 +17,6 @@
     </div>
     <div class="col-md-4">
         <app-card [icon]="'crown'"
-                  [iconColor]="'yellow'"
                   [value]="mostLoyal.length ? '@' + mostLoyal[0].name : ''"
                   [title]="'most loyal'"
                   [description]="'Every ' + getTopFrequency() + ' post'"
@@ -30,8 +27,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <app-card [icon]="'account'"
-                  [iconColor]="'grey'"
+        <app-card [icon]="'ghost'"
                   [value]="ghostFollowers.length || '0'"
                   [title]="'ghost followers'"
                   [description]="'Active Steemians who didn\'t engage with you in the last 100 posts'"
@@ -39,8 +35,7 @@
         </app-card>
     </div>
     <div class="col-md-6">
-        <app-card [icon]="'account'"
-                  [iconColor]="'red'"
+        <app-card [icon]="'skull'"
                   [value]="deadFollowers.length || '0'"
                   [title]="'dead followers'"
                   [description]="'Followers who haven\'t been active in over a month'"
