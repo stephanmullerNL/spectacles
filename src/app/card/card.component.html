@@ -1,9 +1,10 @@
-<div class="card block" [ngClass]="{'block--loading': !ready}">
+<div class="card block">
     <i class="card-icon card-icon--{{iconColor}} mdi mdi-{{icon}}"></i>
 
-    <h1 class="card-title h2">
-        {{value || '-'}}
+    <h1 class="card-title h2" [ngClass]="{'loading': !ready}">
+        {{value}}
     </h1>
+
     <p class="card-subtitle">
         {{title}}
     </p>
