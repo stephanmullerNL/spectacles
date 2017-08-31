@@ -6,8 +6,10 @@
     &-icon {
         font-size: 24px;
 
-        &--green { color: $green; }
-        &--yellow { color: $yellow; }
+        &--account { color: $green; }
+        &--crown { color: $yellow; }
+        &--skull { color: $red; }
+        &--ghost { color: $gray-ghost; }
     }
 
     &-text {
