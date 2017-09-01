@@ -43,7 +43,7 @@
         }
 
         &::-webkit-progress-value {
-            background-image: linear-gradient(270deg, #CDDC39 0%, #9E9D24 100%);
+            background-image: linear-gradient(270deg, $yellow-light 0%, $yellow-dark 100%);
             border-radius: 2px;
         }
     }
