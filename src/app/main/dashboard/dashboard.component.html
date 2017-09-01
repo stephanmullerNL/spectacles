@@ -111,7 +111,7 @@
                     <td>@{{user.name}}</td>
                     <td>{{user.stats.totalShares | steemPower}}</td>
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
-                    <td>${{user.stats.avgReward | reward}}</td>
+                    <td>${{user.stats.totalShares | votePower | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
                     <td>{{user.stats.lastActive | date}}</td>
                 </tr>

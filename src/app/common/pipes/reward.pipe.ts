@@ -22,7 +22,6 @@ export class RewardPipe implements PipeTransform {
     transform(shares: number): string {
         const reward = shares * this.steemValue * (this.rewardBalance / this.recentClaims);
 
-        console.log('shares', shares, 'reward', reward);
         return reward.toFixed(2);
     }
 

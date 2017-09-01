@@ -21,9 +21,13 @@ export class VotePowerPipe implements PipeTransform {
               power: number = this.STEEM_100_PERCENT,
               weight: number = this.STEEM_100_PERCENT): any {
 
+        // no idea why, see:
+        // https://steemit.com/steemdev/@jfollas/write-a-steemit-web-app-part-13-how-to-calculate-a-vote-s-rshares
+        const multiplier = 1000000;
         const usedPower = this.calculateUsedPower(power, weight);
+        const voteShares = shares * usedPower / this.STEEM_100_PERCENT;
 
-        return shares * usedPower / this.STEEM_100_PERCENT;
+        return voteShares * multiplier;
     }
 
     private calculateUsedPower(power, weight) {
