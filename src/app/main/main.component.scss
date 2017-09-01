@@ -7,10 +7,6 @@ main {
 .navbar-brand {
     color: $gray-light;
 
-    &:hover {
-        color: $yellow-light;
-    }
-
     img {
         margin-left: 1em;
         margin-right: .5em;
@@ -20,5 +16,10 @@ main {
     span {
         color: white;
         text-transform: uppercase;
+    }
+
+    sup {
+        color: $gray-light;
+        font-size: $font-size-sm;
     }
 }
