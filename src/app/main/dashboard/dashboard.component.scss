@@ -8,7 +8,6 @@
 }
 
 
-
 .table {
     margin-bottom: 0;
 
@@ -19,6 +18,10 @@
     .loading td {
         padding: 0;
     }
+}
+
+.table-title {
+    font-size: $font-size-h5;
 }
 
 .most-loyal {

@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../user/user.service';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {FollowersService} from '../user/followers.service';
 import {PostsService} from '../user/posts.service';
-import {User} from "app/models/user";
+import {User} from 'app/models/user';
 
 @Component({
     templateUrl: './main.component.html',
