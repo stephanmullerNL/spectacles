@@ -1,3 +1,5 @@
+@import '../../variables';
+
 @-webkit-keyframes md-progress-linear-indeterminate-scale-1 {
     0% {
         -webkit-transform: scaleX(.1);
@@ -209,7 +211,7 @@
 .linear-progress {
     background-color: $yellow-dark;
     display: block;
-    height: 5px;
+    height: 3px;
     overflow: hidden;
     position: relative;
     transform: translate(0, 0) scale(1, 1);

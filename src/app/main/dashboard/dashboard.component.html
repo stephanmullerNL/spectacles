@@ -66,6 +66,11 @@
                     <th>Avg $ upvote</th>
                     <th>Total $ received</th>
                 </tr>
+                <tr *ngIf="!mostLoyal.length" class="loading">
+                    <td colspan="7">
+                        <app-linear-progress></app-linear-progress>
+                    </td>
+                </tr>
                 <tr *ngFor="let user of mostLoyal; let i = index;">
                     <td>{{i + 1}}.</td>
                     <td>@{{user.name}}</td>
@@ -95,6 +100,11 @@
                     <th>100% upvote value</th>
                     <th>Total $ received</th>
                     <th>Last active</th>
+                </tr>
+                <tr *ngIf="!mostLoyal.length" class="loading">
+                    <td colspan="7">
+                        <app-linear-progress></app-linear-progress>
+                    </td>
                 </tr>
                 <tr *ngFor="let user of mostInfluential; let i = index;">
                     <td>{{i + 1}}.</td>

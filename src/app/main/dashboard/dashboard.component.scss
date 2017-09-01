@@ -2,12 +2,23 @@
 
 .table-wrapper {
     padding: 0;
+    margin-bottom: 2em;
     max-height: 400px;
     overflow-y: auto;
 }
 
-.table td {
-    white-space: nowrap;
+
+
+.table {
+    margin-bottom: 0;
+
+    td {
+        white-space: nowrap;
+    }
+
+    .loading td {
+        padding: 0;
+    }
 }
 
 .most-loyal {
