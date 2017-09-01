@@ -3,7 +3,7 @@
 .table-wrapper {
     padding: 0;
     max-height: 400px;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .table td {
