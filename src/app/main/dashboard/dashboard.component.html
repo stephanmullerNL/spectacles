@@ -55,7 +55,7 @@
     <div class="col-12">
         <h2 class="table-title">Most Loyal Followers</h2>
 
-        <div class="block table-wrapper">
+        <div class="block table-wrapper" [ngClass]="{ 'loading': !mostLoyal.length }">
             <table class="table most-loyal">
                 <tr>
                     <td></td>
@@ -66,10 +66,10 @@
                     <th>Avg $ upvote</th>
                     <th>Total $ received</th>
                 </tr>
-                <tr *ngIf="!mostLoyal.length" class="loading">
-                    <td colspan="7">
+                <tr class="loading-row">
+                    <th colspan="7">
                         <app-linear-progress></app-linear-progress>
-                    </td>
+                    </th>
                 </tr>
                 <tr *ngFor="let user of mostLoyal; let i = index;">
                     <td>{{i + 1}}.</td>
@@ -90,8 +90,8 @@
     <div class="col-12">
         <h2 class="table-title">Most Influential Followers</h2>
 
-        <div class="block table-wrapper">
-            <table class="table most-loyal">
+        <div class="block table-wrapper" [ngClass]="{ 'loading': !mostInfluential.length }">
+            <table class="table most-influential">
                 <tr>
                     <th></th>
                     <th>User</th>
@@ -101,10 +101,10 @@
                     <th>Total $ received</th>
                     <th>Last active</th>
                 </tr>
-                <tr *ngIf="!mostLoyal.length" class="loading">
-                    <td colspan="7">
+                <tr class="loading-row">
+                    <th colspan="7">
                         <app-linear-progress></app-linear-progress>
-                    </td>
+                    </th>
                 </tr>
                 <tr *ngFor="let user of mostInfluential; let i = index;">
                     <td>{{i + 1}}.</td>
