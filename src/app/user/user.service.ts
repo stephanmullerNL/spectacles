@@ -17,12 +17,11 @@ export class UserService {
         const name = username.toLowerCase();
 
         return Steem.api.getAccounts([name])
-            .then((users: User[]) => {
-                if (!users.length) {
+            .then(([user]) => {
+                if (!user) {
                     throw new Error(`User ${username} not found`);
                 } else {
-                    const user = this.transform(users[0]);
-                    this.currentUser.next(user);
+                    return this.currentUser.next(this.transform(user));
                 }
             });
     }

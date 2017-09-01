@@ -6,11 +6,11 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class FollowersService {
 
-    private _followers = new BehaviorSubject<Follower[]>([]);
-    private _followCount = new BehaviorSubject<FollowCount>(new FollowCount());
+    private followers = new BehaviorSubject<Follower[]>([]);
+    private followCount = new BehaviorSubject<FollowCount>(new FollowCount());
 
-    followers$ = this._followers.asObservable();
-    followCount$ = this._followCount.asObservable();
+    followers$ = this.followers.asObservable();
+    followCount$ = this.followCount.asObservable();
 
     constructor() {
     }
@@ -26,13 +26,13 @@ export class FollowersService {
         }
 
         return fetch().then(followers => {
-            this._followers.next(followers);
+            return this.followers.next(followers);
         });
     }
 
     fetchFollowCount(username: string): Promise<FollowCount> {
         return Steem.api.getFollowCount(username).then(followCount => {
-            this._followCount.next(followCount);
+            return this.followCount.next(followCount);
         });
     }
 }

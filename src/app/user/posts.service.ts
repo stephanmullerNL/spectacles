@@ -22,7 +22,7 @@ export class PostsService {
         // Date string gets ignored, but set it to a far future just to be sure
         return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 100)
             .then((posts: Post[]) => {
-                this.posts.next(posts);
+                return this.posts.next(posts);
             });
     }
 

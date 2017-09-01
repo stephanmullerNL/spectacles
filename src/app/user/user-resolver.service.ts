@@ -17,7 +17,7 @@ export class UserResolver implements Resolve<any> {
         const username: string = route.paramMap.get('username').substr(1);
 
         return this.userService.fetchCurrentUser(username).catch(error => {
-            this.router.navigate(['/oops', error]);
+            return this.router.navigate(['/oops', error]);
         });
     }
 }
