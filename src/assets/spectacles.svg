@@ -1,0 +1,40 @@
+<svg width="42" height="23" viewBox="0 0 42 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Binoculars</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(380 -2394)">
+<rect x="-380" y="2394" width="42" height="23" fill="#E5E5E5"/>
+<clipPath id="clip-0" clip-rule="evenodd">
+<path d="M -420 2355L 1020 2355L 1020 4094L -420 4094L -420 2355Z" fill="#FFFFFF"/>
+</clipPath>
+<g id="MVP" clip-path="url(#clip-0)">
+<path d="M -420 2355L 1020 2355L 1020 4094L -420 4094L -420 2355Z" fill="#FFFFFF"/>
+<g id="BG">
+<use xlink:href="#path0_fill" transform="translate(-420 2355)" fill="#424242"/>
+</g>
+<g id="Header" filter="url(#filter0_d)">
+<g id="Rectangle">
+<use xlink:href="#path1_fill" transform="translate(-420 2355)" fill="#333333"/>
+</g>
+<g id="Binoculars">
+<g id="Union">
+<use xlink:href="#path2_fill" transform="translate(-380 2394)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" filterUnits="userSpaceOnUse" x="-420" y="2355" width="1440" height="104" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="0" dy="2"/>
+<feGaussianBlur stdDeviation="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<path id="path0_fill" d="M 0 0L 1440 0L 1440 1739L 0 1739L 0 0Z"/>
+<path id="path1_fill" d="M 0 0L 1440 0L 1440 100L 0 100L 0 0Z"/>
+<path id="path2_fill" fill-rule="evenodd" d="M 11.2 19.6875C 15.8392 19.6875 19.6 15.9099 19.6 11.25C 19.6 6.59009 15.8392 2.8125 11.2 2.8125C 6.56082 2.8125 2.79999 6.59009 2.79999 11.25C 2.79999 15.9099 6.56082 19.6875 11.2 19.6875ZM 21 5.79932C 19.0894 2.3407 15.4168 0 11.2 0C 5.0144 0 0 5.03674 0 11.25C 0 17.4633 5.0144 22.5 11.2 22.5C 15.4168 22.5 19.0894 20.1593 21 16.7007C 22.9106 20.1593 26.5832 22.5 30.8 22.5C 36.9856 22.5 42 17.4633 42 11.25C 42 5.03674 36.9856 0 30.8 0C 26.5832 0 22.9106 2.3407 21 5.79932ZM 22.4 11.25C 22.4 15.9099 26.1608 19.6875 30.8 19.6875C 35.4392 19.6875 39.2 15.9099 39.2 11.25C 39.2 6.59009 35.4392 2.8125 30.8 2.8125C 26.1608 2.8125 22.4 6.59009 22.4 11.25ZM 8.39999 9.84375C 9.17319 9.84375 9.79999 9.21411 9.79999 8.4375C 9.79999 7.66089 9.17319 7.03125 8.39999 7.03125C 7.6268 7.03125 7 7.66089 7 8.4375C 7 9.21411 7.6268 9.84375 8.39999 9.84375ZM 28 9.84375C 28.7732 9.84375 29.4 9.21411 29.4 8.4375C 29.4 7.66089 28.7732 7.03125 28 7.03125C 27.2268 7.03125 26.6 7.66089 26.6 8.4375C 26.6 9.21411 27.2268 9.84375 28 9.84375ZM 30.8 16.1719C 33.5062 16.1719 35.7 13.9683 35.7 11.25L 37.1 11.25C 37.1 14.7449 34.2794 17.5781 30.8 17.5781L 30.8 16.1719ZM 16.1 11.25C 16.1 13.9683 13.9062 16.1719 11.2 16.1719L 11.2 17.5781C 14.6794 17.5781 17.5 14.7449 17.5 11.25L 16.1 11.25Z"/>
+</defs>
+</svg>
