@@ -37,8 +37,8 @@ export class UserService {
     getTotalShares(user: User) {
         const toNumber = str => Number(str.split(' ')[0]);
 
-        return toNumber(user.vesting_shares) + toNumber(user.delegated_vesting_shares)
-            - toNumber(user.received_vesting_shares);
+        return toNumber(user.vesting_shares) - toNumber(user.delegated_vesting_shares)
+            + toNumber(user.received_vesting_shares);
     }
 
     getUsers(userNames: string[]) {
