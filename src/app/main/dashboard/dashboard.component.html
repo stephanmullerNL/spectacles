@@ -58,6 +58,7 @@
         <div class="block table-wrapper">
             <table class="table most-loyal">
                 <tr>
+                    <td></td>
                     <th>Name</th>
                     <th>Upvotes</th>
                     <th>Comments</th>
@@ -65,7 +66,8 @@
                     <th>Avg $ upvote</th>
                     <th>Total $ received</th>
                 </tr>
-                <tr *ngFor="let user of mostLoyal">
+                <tr *ngFor="let user of mostLoyal; let i = index;">
+                    <td>{{i + 1}}.</td>
                     <td>@{{user.name}}</td>
                     <td>{{user.stats.upvotes}}</td>
                     <td>{{user.stats.comments}}</td>
@@ -86,6 +88,7 @@
         <div class="block table-wrapper">
             <table class="table most-loyal">
                 <tr>
+                    <th></th>
                     <th>User</th>
                     <th>SP</th>
                     <th>Interaction frequency</th>
@@ -93,7 +96,8 @@
                     <th>Total $ received</th>
                     <th>Last active</th>
                 </tr>
-                <tr *ngFor="let user of mostInfluential">
+                <tr *ngFor="let user of mostInfluential; let i = index;">
+                    <td>{{i + 1}}.</td>
                     <td>@{{user.name}}</td>
                     <td>{{user.stats.totalShares | steemPower}}</td>
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
