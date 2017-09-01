@@ -46,7 +46,8 @@ export class UserService {
         });
     }
 
-    lookupAccountNames(names: string[]): Promise<User[]> {
+    lookupAccountNames(usernames: string[]): Promise<User[]> {
+        const names = usernames.map(name => name.toLowerCase());
         return Steem.api.lookupAccountNames(names);
     }
 
