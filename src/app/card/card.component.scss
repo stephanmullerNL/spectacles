@@ -26,13 +26,13 @@
 
     &-title {
         margin: 16px 0 10px;
+        min-height: 1.1em;
         white-space: nowrap;
 
         &.loading {
             background: url('../../assets/loading.svg') no-repeat center center;
             background-size: 60px;
             color: transparent;
-            min-height: 1.1em;
         }
     }
 
