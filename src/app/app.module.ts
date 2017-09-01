@@ -27,6 +27,7 @@ import {UpvotesComponent} from './main/upvotes/upvotes.component';
 import {UserInfoComponent} from './user-info/user-info.component';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
+import {VotePowerPipe} from './common/pipes/vote-power.pipe';
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import {UserService} from './user/user.service';
         SteemPowerPipe,
         RewardPipe,
         UpvoteChartComponent,
-        LinearProgressComponent
+        LinearProgressComponent,
+        VotePowerPipe
     ],
     imports: [
         BrowserModule,
