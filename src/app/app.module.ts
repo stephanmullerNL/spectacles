@@ -25,6 +25,7 @@ import {SteemResolver} from 'app/steem-resolver.service';
 import {SteemService} from './steem.service';
 import {SteemPowerPipe} from './steem-power.pipe';import {RewardPipe} from './reward.pipe';
 import {UpvoteChartComponent} from './upvote-chart/upvote-chart.component';
+import { LinearProgressComponent } from './common/linear-progress/linear-progress.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import {UpvoteChartComponent} from './upvote-chart/upvote-chart.component';
         CardComponent,
         SteemPowerPipe,
         RewardPipe,
-        UpvoteChartComponent
+        UpvoteChartComponent,
+        LinearProgressComponent
     ],
     imports: [
         BrowserModule,
