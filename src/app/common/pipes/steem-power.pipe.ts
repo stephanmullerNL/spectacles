@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {SteemService} from './steem.service';
+import {SteemService} from '../../steem.service';
 
 @Pipe({
     name: 'steemPower'
@@ -15,8 +15,8 @@ export class SteemPowerPipe implements PipeTransform {
         });
     }
 
-    transform(value: string): string {
-        const steemPower = this.totalSteem * (this.toNumber(value) / this.totalShares);
+    transform(shares: string): string {
+        const steemPower = this.totalSteem * (this.toNumber(shares) / this.totalShares);
 
         return steemPower.toLocaleString() + ' SP';
     }

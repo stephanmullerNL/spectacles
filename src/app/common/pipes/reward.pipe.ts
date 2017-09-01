@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {SteemService} from './steem.service';
+import {SteemService} from '../../steem.service';
 
 @Pipe({
     name: 'reward'
@@ -19,9 +19,10 @@ export class RewardPipe implements PipeTransform {
         });
     }
 
-    transform(value: number): string {
-        const reward = value * this.steemValue * (this.rewardBalance / this.recentClaims);
+    transform(shares: number): string {
+        const reward = shares * this.steemValue * (this.rewardBalance / this.recentClaims);
 
+        console.log('shares', shares, 'reward', reward);
         return reward.toFixed(2);
     }
 
