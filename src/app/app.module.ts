@@ -12,20 +12,21 @@ import {FindUserComponent} from './find-user/find-user.component';
 import {FollowersComponent} from './main/followers/followers.component';
 import {FollowersService} from './user/followers.service';
 import {HomeComponent} from './home/home.component';
+import {LinearProgressComponent} from './common/linear-progress/linear-progress.component';
 import {MainComponent} from './main/main.component';
-import {ReputationPipe} from './reputation.pipe';
+import {PostsService} from './user/posts.service';
+import {ReputationPipe} from './common/pipes/reputation.pipe';
+import {RewardPipe} from './common/pipes/reward.pipe';
 import {RouterModule} from '@angular/router';
 import {SideNavComponent} from './side-nav/side-nav.component';
+import {SteemPowerPipe} from './common/pipes/steem-power.pipe';
+import {SteemResolver} from 'app/steem-resolver.service';
+import {SteemService} from './steem.service';
+import {UpvoteChartComponent} from './upvote-chart/upvote-chart.component';
 import {UpvotesComponent} from './main/upvotes/upvotes.component';
 import {UserInfoComponent} from './user-info/user-info.component';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
-import {PostsService} from './user/posts.service';
-import {SteemResolver} from 'app/steem-resolver.service';
-import {SteemService} from './steem.service';
-import {SteemPowerPipe} from './steem-power.pipe';import {RewardPipe} from './reward.pipe';
-import {UpvoteChartComponent} from './upvote-chart/upvote-chart.component';
-import { LinearProgressComponent } from './common/linear-progress/linear-progress.component';
 
 @NgModule({
     declarations: [
