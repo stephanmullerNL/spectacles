@@ -13,6 +13,7 @@ import {Observable} from 'rxjs/Rx';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+    allDone: boolean;
     currentUser = new User();
     deadFollowers: User[] = [];
     followCount = new FollowCount();
@@ -31,6 +32,8 @@ export class DashboardComponent implements OnInit {
 
             // There must be a better way to do this
             this.updateAll([[], [], [], []]);
+            this.allDone = false;
+            this.followCount = new FollowCount();
         });
 
         Observable.zip(
@@ -56,6 +59,8 @@ export class DashboardComponent implements OnInit {
             this.getFollowerData(followers),
             this.postsService.getCommentsForPosts(allPosts)
         ).subscribe(([users, replies]) => {
+            this.allDone = true;
+
             const stats = this.getUserStats(allPosts, users, replies);
 
             this.mostLoyal = stats

@@ -4,7 +4,7 @@
                   [value]="followCount.follower_count"
                   [title]="'followers'"
                   [description]="'Your Steemit fans'"
-                  [ready]="followCount.account">
+                  [ready]="followCount.account || allDone">
         </app-card>
     </div>
     <div class="col-md-4">
@@ -12,7 +12,7 @@
                   [value]="followCount.following_count"
                   [title]="'following'"
                   [description]="'Your role models'"
-                  [ready]="followCount.account">
+                  [ready]="followCount.account || allDone">
         </app-card>
     </div>
     <div class="col-md-4">
@@ -20,7 +20,7 @@
                   [value]="mostLoyal.length ? '@' + mostLoyal[0].name : ''"
                   [title]="'most loyal'"
                   [description]="'Every ' + getTopFrequency() + ' post'"
-                  [ready]="mostLoyal.length">
+                  [ready]="mostLoyal.length || allDone">
         </app-card>
     </div>
 </div>
@@ -31,7 +31,7 @@
                   [value]="ghostFollowers.length || '0'"
                   [title]="'ghost followers'"
                   [description]="'Active Steemians who didn\'t engage with you in the last 100 posts'"
-                  [ready]="ghostFollowers.length || mostLoyal.length">
+                  [ready]="ghostFollowers.length || allDone">
         </app-card>
     </div>
     <div class="col-md-6">
@@ -39,7 +39,7 @@
                   [value]="deadFollowers.length || '0'"
                   [title]="'dead followers'"
                   [description]="'Followers who haven\'t been active in over a month'"
-                  [ready]="deadFollowers.length || mostLoyal.length">
+                  [ready]="deadFollowers.length || allDone">
         </app-card>
     </div>
 </div>
@@ -55,7 +55,7 @@
     <div class="col-12">
         <h2 class="table-title">Most Loyal Followers</h2>
 
-        <div class="block table-wrapper" [ngClass]="{ 'loading': !mostLoyal.length }">
+        <div class="block table-wrapper" [ngClass]="{ 'loading': !(mostLoyal.length || allDone) }">
             <table class="table most-loyal">
                 <tr>
                     <td></td>
@@ -90,7 +90,7 @@
     <div class="col-12">
         <h2 class="table-title">Most Influential Followers</h2>
 
-        <div class="block table-wrapper" [ngClass]="{ 'loading': !mostInfluential.length }">
+        <div class="block table-wrapper" [ngClass]="{ 'loading': !(mostInfluential.length || allDone) }">
             <table class="table most-influential">
                 <tr>
                     <th></th>
