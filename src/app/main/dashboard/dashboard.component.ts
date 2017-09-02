@@ -27,20 +27,24 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.currentUser$.subscribe(user => {
-            this.currentUser = user;
+        this.allDone = false;
 
-            // There must be a better way to do this
-            this.updateAll([[], [], [], []]);
-            this.allDone = false;
-            this.followCount = new FollowCount();
+        Observable.combineLatest(
+            this.userService.currentUser$,
+            this.followersService.followCount$
+        ).subscribe(([currentUser, followCount]) => {
+            if (currentUser.name !== followCount.account) {
+                this.resetAll();
+            }
+
+            this.followCount = followCount;
+            this.currentUser = currentUser;
         });
 
-        Observable.zip(
-            this.followersService.followCount$,
-            this.followersService.followers$,
-            this.postsService.comments$,
-            this.postsService.posts$
+        Observable.combineLatest(
+            this.userService.users$,
+            this.postsService.allPosts$,
+            this.postsService.allReplies$
         ).subscribe(result => this.updateAll(result));
     }
 
@@ -50,36 +54,38 @@ export class DashboardComponent implements OnInit {
             : '-';
     }
 
-    private updateAll([followCount, followers, comments, posts]) {
-        const allPosts = posts.concat(comments);
+    private resetAll(): void {
+        // There must be a better way to do this
+        this.updateAll([[], [], [], []]);
+        this.allDone = false;
+    }
 
-        this.followCount = followCount;
+    private updateAll([users, allPosts, replies]) {
+        const stats = this.getUserStats(allPosts, users, replies);
 
-        Observable.zip(
-            this.getFollowerData(followers),
-            this.postsService.getCommentsForPosts(allPosts)
-        ).subscribe(([users, replies]) => {
+        this.mostLoyal = stats
+            .filter(user => user.stats.frequency > 0)
+            .sort((a, b) => b.stats.frequency - a.stats.frequency);
+
+        this.mostInfluential = stats
+            .sort((a, b) => b.stats.totalShares - a.stats.totalShares);
+
+        this.ghostFollowers = stats
+            .filter(user => user.stats.frequency === 0);
+
+        this.deadFollowers = stats
+            .filter((user: User) => {
+                const now = Date.now();
+                const month = 1000 * 60 * 60 * 24 * 30;
+                return now - user.stats.lastActive > month;
+            });
+
+
+        if (users.length === this.followCount.follower_count
+            && allPosts.length === this.currentUser.post_count) {
             this.allDone = true;
+        }
 
-            const stats = this.getUserStats(allPosts, users, replies);
-
-            this.mostLoyal = stats
-                .filter(user => user.stats.frequency > 0)
-                .sort((a, b) => b.stats.frequency - a.stats.frequency);
-
-            this.mostInfluential = stats
-                .sort((a, b) => b.stats.totalShares - a.stats.totalShares);
-
-            this.ghostFollowers = stats
-                .filter(user => user.stats.frequency === 0);
-
-            this.deadFollowers = stats
-                .filter((user: User) => {
-                    const now = Date.now();
-                    const month = 1000 * 60 * 60 * 24 * 30;
-                    return now - user.stats.lastActive > month;
-                });
-        });
     }
 
     private getUserStats(posts, users, replies) {
@@ -103,11 +109,5 @@ export class DashboardComponent implements OnInit {
 
             return user;
         });
-    }
-
-
-    private getFollowerData(followers) {
-        const names = followers.map(follower => follower.follower);
-        return this.userService.getUsers(names);
     }
 }

@@ -7,56 +7,16 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class PostsService {
 
-    private comments = new BehaviorSubject<Post[]>([]);
-    private posts = new BehaviorSubject<Post[]>([]);
+    private allPosts = new BehaviorSubject<Post[]>([]);
+    private allReplies = new BehaviorSubject<Post[]>([]);
 
-    comments$ = this.comments.asObservable();
-    posts$ = this.posts.asObservable();
+    allPosts$ = this.allPosts.asObservable();
+    allReplies$ = this.allReplies.asObservable();
 
     constructor() {
     }
 
     private toFlatArray = (all, current) => all.concat(current);
-
-    fetchAllPosts(username: string): Promise<void> {
-        // Date string gets ignored, but set it to a far future just to be sure
-        return Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 100)
-            .then((posts: Post[]) => {
-                return this.posts.next(posts);
-            });
-    }
-
-    fetchAllComments(username: string): Promise<void> {
-        const query = {
-            limit: 100,
-            start_author: username
-        };
-
-        return Steem.api.getDiscussionsByComments(query)
-            .then((posts: Post[]) => {
-                return this.comments.next(posts);
-            });
-    }
-
-    getAllPostUpvotes(posts) {
-        return posts.reduce((all, post) => {
-            return all.concat(post.active_votes);
-        }, []);
-    }
-
-    getCommentsForPosts(posts: Post[]) {
-        const promises = posts.map(post => {
-            return this.getPostComments(post);
-        });
-
-        return Promise.all(promises).then(results => {
-            return results.reduce(this.toFlatArray, []);
-        });
-    }
-
-    getPostComments(post) {
-        return Steem.api.getContentReplies(post.author, post.permlink);
-    }
 
     countPostsByAuthour(posts) {
         return posts.reduce((counter, post) => {
@@ -64,7 +24,6 @@ export class PostsService {
             return counter.set(post.author, count + 1);
         }, new Map());
     }
-
 
     countUpvotesByUser(upvotes) {
         return upvotes.reduce((all, upvote) => {
@@ -77,5 +36,41 @@ export class PostsService {
 
             return all;
         }, new Map());
+    }
+
+    fetchAllPostsAndComments(username: string): Promise<void> {
+        const query = {
+            limit: 100,
+            start_author: username
+        };
+
+        // Date string gets ignored, but set it to a far future just to be sure
+        return Promise.all([
+            Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 100),
+            Steem.api.getDiscussionsByComments(query)
+        ]).then(([posts, comments]) => {
+            return this.allPosts.next(comments.concat(posts));
+        });
+    }
+
+    fetchReplies(posts: Post[]) {
+        const promises = posts.map(post => {
+            return this.getReplies(post);
+        });
+
+        return Promise.all(promises).then(results => {
+            const replies = results.reduce(this.toFlatArray, []);
+            this.allReplies.next(replies);
+        });
+    }
+
+    getAllPostUpvotes(posts) {
+        return posts.reduce((all, post) => {
+            return all.concat(post.active_votes);
+        }, []);
+    }
+
+    getReplies(post) {
+        return Steem.api.getContentReplies(post.author, post.permlink);
     }
 }

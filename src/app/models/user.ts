@@ -4,6 +4,7 @@ export class User {
     last_post: string;
     last_vote_time: string;
     name: string;
+    post_count: number;
     received_vesting_shares: string;
     reputation: string;
     vesting_shares: string;

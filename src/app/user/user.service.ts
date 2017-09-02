@@ -7,8 +7,10 @@ import {User} from '../models/user';
 export class UserService {
 
     private currentUser = new BehaviorSubject<User>(new User());
+    private users = new BehaviorSubject<User[]>([]);
 
     currentUser$ = this.currentUser.asObservable();
+    users$ = this.users.asObservable();
 
     constructor() {
     }
@@ -26,6 +28,14 @@ export class UserService {
             });
     }
 
+    fetchUsers(userNames: string[]) {
+        return Steem.api.getAccounts(userNames).then((users: User[]) => {
+            return users.map((user: User) => this.transform(user));
+        }).then(users => {
+            return this.users.next(users);
+        });
+    }
+
     getLastActivity(user: User): number {
         const lastPost = Date.parse(user.last_post);
         const lastVote = Date.parse(user.last_vote_time);
@@ -38,12 +48,6 @@ export class UserService {
 
         return toNumber(user.vesting_shares) - toNumber(user.delegated_vesting_shares)
             + toNumber(user.received_vesting_shares);
-    }
-
-    getUsers(userNames: string[]) {
-        return Steem.api.getAccounts(userNames).then((users: User[]) => {
-            return users.map((user: User) => this.transform(user));
-        });
     }
 
     lookupAccountNames(usernames: string[]): Promise<User[]> {

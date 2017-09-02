@@ -12,19 +12,20 @@ export class MainComponent implements OnInit {
     user: User = new User();
 
     constructor(private followersService: FollowersService,
-        private postsService: PostsService,
-        private userService: UserService) {
+                private postsService: PostsService,
+                private usersService: UserService) {
     }
 
     ngOnInit() {
-        this.userService.currentUser$
-            .subscribe(user => {
-            this.user = user;
+        this.usersService.currentUser$.subscribe(user => this.user = user);
 
-            this.followersService.fetchAllFollowers(user.name);
-            this.followersService.fetchFollowCount(user.name);
-            this.postsService.fetchAllComments(user.name);
-            this.postsService.fetchAllPosts(user.name);
+        this.followersService.followers$.subscribe(followers => {
+            const followerNames = followers.map(follower => follower.follower);
+            this.usersService.fetchUsers(followerNames);
+        });
+
+        this.postsService.allPosts$.subscribe(allPosts => {
+            this.postsService.fetchReplies(allPosts);
         });
     }
 }
