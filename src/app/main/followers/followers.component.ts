@@ -18,8 +18,6 @@ export class FollowersComponent implements OnInit {
     deadFollowers: User[] = [];
     followCount = new FollowCount();
     ghostFollowers: User[] = [];
-    mostInfluential: User[] = [];
-    mostLoyal: User[] = [];
 
     constructor(private followersService: FollowersService,
                 private postsService: PostsService,
@@ -46,12 +44,6 @@ export class FollowersComponent implements OnInit {
             this.postsService.allPosts$,
             this.postsService.allReplies$
         ).subscribe(result => this.updateAll(result));
-    }
-
-    getTopFrequency(): string {
-        return this.mostLoyal.length
-            ? this.mostLoyal[0].stats.frequency.toFixed(2)
-            : '-';
     }
 
     private resetAll(): void {

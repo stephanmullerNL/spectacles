@@ -26,25 +26,6 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
-        <app-card [icon]="'ghost'"
-                  [value]="ghostFollowers.length || '0'"
-                  [title]="'ghost followers'"
-                  [description]="'Active Steemians who didn\'t engage with you in the last 100 posts'"
-                  [ready]="ghostFollowers.length || allDone">
-        </app-card>
-    </div>
-    <div class="col-md-6">
-        <app-card [icon]="'skull'"
-                  [value]="deadFollowers.length || '0'"
-                  [title]="'dead followers'"
-                  [description]="'Followers who haven\'t been active in over a month'"
-                  [ready]="deadFollowers.length || allDone">
-        </app-card>
-    </div>
-</div>
-
-<div class="row">
     <div class="col-md-12">
         <!--<app-upvote-chart></app-upvote-chart>-->
     </div>
