@@ -44,7 +44,7 @@
         </tr>
         <tr *ngFor="let user of ghostFollowers; let i = index;">
           <td>{{i + 1}}.</td>
-          <td>@{{user.name}}</td>
+          <td [innerHTML]="user.name | userLink"></td>
           <td>{{user.stats.totalShares | steemPower}}</td>
           <td>{{user.stats.lastActive | date}}</td>
           <td></td>
@@ -73,7 +73,7 @@
         </tr>
         <tr *ngFor="let user of deadFollowers; let i = index;">
           <td>{{i + 1}}.</td>
-          <td>@{{user.name}}</td>
+          <td [innerHTML]="user.name | userLink"></td>
           <td>{{user.stats.totalShares | steemPower}}</td>
           <td>{{user.stats.lastActive | date}}</td>
           <td></td>

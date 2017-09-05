@@ -25,6 +25,7 @@ import {SteemService} from './steem.service';
 import {UpvoteChartComponent} from './upvote-chart/upvote-chart.component';
 import {UpvotesComponent} from './main/upvotes/upvotes.component';
 import {UserInfoComponent} from './user-info/user-info.component';
+import {UserLinkPipe} from './common/pipes/user-link.pipe';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
 import {VotePowerPipe} from './common/pipes/vote-power.pipe';
@@ -46,7 +47,8 @@ import {VotePowerPipe} from './common/pipes/vote-power.pipe';
         RewardPipe,
         UpvoteChartComponent,
         LinearProgressComponent,
-        VotePowerPipe
+        VotePowerPipe,
+        UserLinkPipe
     ],
     imports: [
         BrowserModule,

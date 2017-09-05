@@ -54,7 +54,7 @@
                 </tr>
                 <tr *ngFor="let user of mostLoyal; let i = index;">
                     <td>{{i + 1}}.</td>
-                    <td>@{{user.name}}</td>
+                    <td [innerHTML]="user.name | userLink"></td>
                     <td>{{user.stats.upvotes}}</td>
                     <td>{{user.stats.comments}}</td>
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
@@ -89,7 +89,7 @@
                 </tr>
                 <tr *ngFor="let user of mostInfluential; let i = index;">
                     <td>{{i + 1}}.</td>
-                    <td>@{{user.name}}</td>
+                    <td [innerHTML]="user.name | userLink"></td>
                     <td>{{user.stats.totalShares | steemPower}}</td>
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
                     <td>${{user.stats.totalShares | votePower | reward}}</td>
