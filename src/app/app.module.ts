@@ -29,6 +29,7 @@ import {UserLinkPipe} from './common/pipes/user-link.pipe';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
 import {VotePowerPipe} from './common/pipes/vote-power.pipe';
+import { MadeWithLoveComponent } from './made-with-love/made-with-love.component';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import {VotePowerPipe} from './common/pipes/vote-power.pipe';
         UpvoteChartComponent,
         LinearProgressComponent,
         VotePowerPipe,
-        UserLinkPipe
+        UserLinkPipe,
+        MadeWithLoveComponent
     ],
     imports: [
         BrowserModule,
