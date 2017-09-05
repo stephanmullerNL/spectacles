@@ -1,3 +1,20 @@
+@import '../variables';
+
 span {
+    color: $gray-light;
     display: inline-block;
+}
+
+a {
+    color: $gray-light;
+}
+
+.mdi-heart,
+.steemit-icon {
+    margin: 0 3px;
+}
+
+.mdi-heart {
+    color: $red;
+    vertical-align: middle;
 }
