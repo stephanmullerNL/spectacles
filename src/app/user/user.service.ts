@@ -2,6 +2,7 @@ import * as Steem from 'steem';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Injectable} from '@angular/core';
 import {User} from '../models/user';
+import {VoteCounter} from '../models/voteCounter';
 
 @Injectable()
 export class UserService {
@@ -13,6 +14,26 @@ export class UserService {
     users$ = this.users.asObservable();
 
     constructor() {
+    }
+
+    addStats(users, stats) {
+
+        return users.map((user: User) => {
+            const voteCount = upvoteCount.get(user.name) || new VoteCounter();
+            const comments = commentCount.get(user.name) || 0;
+
+            user.stats = {
+                avgReward: voteCount.rshares / (voteCount.count || 1),
+                comments: comments,
+                frequency: ((voteCount.count + comments) / posts.length),
+                lastActive: this.userService.getLastActivity(user),
+                reward: voteCount.rshares,
+                totalShares: this.userService.getTotalShares(user),
+                upvotes: voteCount.count
+            };
+
+            return user;
+        });
     }
 
     fetchCurrentUser(username: string): Promise<User> {

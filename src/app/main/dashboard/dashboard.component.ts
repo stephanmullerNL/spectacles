@@ -40,12 +40,6 @@ export class DashboardComponent implements OnInit {
             this.followCount = followCount;
             this.currentUser = currentUser;
         });
-
-        Observable.combineLatest(
-            this.userService.users$,
-            this.postsService.allPosts$,
-            this.postsService.allReplies$
-        ).subscribe(result => this.updateAll(result));
     }
 
     getTopFrequency(): string {
@@ -85,29 +79,5 @@ export class DashboardComponent implements OnInit {
             && allPosts.length === this.currentUser.post_count) {
             this.allDone = true;
         }
-
-    }
-
-    private getUserStats(posts, users, replies) {
-        const commentCount = this.postsService.countPostsByAuthour(replies);
-        const upvotes = this.postsService.getAllPostUpvotes(posts);
-        const upvoteCount = this.postsService.countUpvotesByUser(upvotes);
-
-        return users.map((user: User) => {
-            const voteCount = upvoteCount.get(user.name) || new VoteCounter();
-            const comments = commentCount.get(user.name) || 0;
-
-            user.stats = {
-                avgReward: voteCount.rshares / (voteCount.count || 1),
-                comments: comments,
-                frequency: ((voteCount.count + comments) / posts.length),
-                lastActive: this.userService.getLastActivity(user),
-                reward: voteCount.rshares,
-                totalShares: this.userService.getTotalShares(user),
-                upvotes: voteCount.count
-            };
-
-            return user;
-        });
     }
 }

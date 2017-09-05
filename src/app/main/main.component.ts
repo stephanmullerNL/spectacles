@@ -3,6 +3,7 @@ import {UserService} from '../user/user.service';
 import {FollowersService} from '../user/followers.service';
 import {PostsService} from '../user/posts.service';
 import {User} from 'app/models/user';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
     templateUrl: './main.component.html',
@@ -26,6 +27,20 @@ export class MainComponent implements OnInit {
 
         this.postsService.allPosts$.subscribe(allPosts => {
             this.postsService.fetchReplies(allPosts);
+        });
+
+        Observable.combineLatest(
+            this.usersService.users$,
+            this.postsService.allPosts$,
+            this.postsService.allReplies$
+        ).subscribe(([users, posts, replies]) => {
+            const commentCount = this.postsService.countPostsByAuthour(replies);
+            const upvotes = this.postsService.getAllPostUpvotes(posts);
+            const upvoteCount = this.postsService.countUpvotesByUser(upvotes);
+
+            this.usersService.addStats(users, {
+
+            })
         });
     }
 }
