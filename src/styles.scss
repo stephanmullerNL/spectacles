@@ -8,6 +8,10 @@ html {
     font-size: 14px;
 }
 
+a.user-link {
+    color: inherit;
+}
+
 app-root:empty {
     background: url('assets/loading.svg') center center no-repeat;
     background-size: 100px;
@@ -44,5 +48,9 @@ app-root:empty {
     th {
         color: $gray-light;
         font-weight: normal;
+    }
+
+    .user-link {
+        text-decoration: underline;
     }
 }

@@ -1,3 +1,84 @@
-<p>
-  coming soon...
-</p>
+<div class="row">
+  <div class="col-md-4">
+    <app-card [icon]="'account'"
+              [value]="followCount.follower_count"
+              [title]="'followers'"
+              [description]="'Your Steemit fans'"
+              [ready]="followCount.account || allDone">
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <app-card [icon]="'ghost'"
+              [value]="ghostFollowers.length || '0'"
+              [title]="'ghost followers'"
+              [description]="'Active Steemians who didn\'t engage with you in the last 100 posts'"
+              [ready]="ghostFollowers.length || allDone">
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <app-card [icon]="'skull'"
+              [value]="deadFollowers.length || '0'"
+              [title]="'dead followers'"
+              [description]="'Followers who haven\'t been active in over a month'"
+              [ready]="deadFollowers.length || allDone">
+    </app-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <h2 class="table-title">Ghost Followers</h2>
+
+    <div class="block table-wrapper" [ngClass]="{ 'loading': !(ghostFollowers.length || allDone) }">
+      <table class="table most-loyal">
+        <tr>
+          <td></td>
+          <th>Name</th>
+          <th>SP</th>
+          <th>Last active</th>
+        </tr>
+        <tr class="loading-row">
+          <th colspan="7">
+            <app-linear-progress></app-linear-progress>
+          </th>
+        </tr>
+        <tr *ngFor="let user of ghostFollowers; let i = index;">
+          <td>{{i + 1}}.</td>
+          <td><app-user-link [username]="user.name"></app-user-link></td>
+          <td>{{user.stats.totalShares | steemPower}}</td>
+          <td>{{user.stats.lastActive | date}}</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <h2 class="table-title">Dead Followers</h2>
+
+    <div class="block table-wrapper" [ngClass]="{ 'loading': !(deadFollowers.length || allDone) }">
+      <table class="table most-loyal">
+        <tr>
+          <td></td>
+          <th>Name</th>
+          <th>SP</th>
+          <th>Last active</th>
+        </tr>
+        <tr class="loading-row">
+          <th colspan="7">
+            <app-linear-progress></app-linear-progress>
+          </th>
+        </tr>
+        <tr *ngFor="let user of deadFollowers; let i = index;">
+          <td>{{i + 1}}.</td>
+          <td><app-user-link [username]="user.name"></app-user-link></td>
+          <td>{{user.stats.totalShares | steemPower}}</td>
+          <td>{{user.stats.lastActive | date}}</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

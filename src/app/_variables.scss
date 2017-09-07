@@ -1,13 +1,11 @@
 // Colors
-$body-bg: #424242;
-$body-color: white;
-
 $black: #212121;
 $blue: #03A9F4;
 $green: #8bc34a;
 $lime: #cddc39;
 $orange: #F2C94C;
 $red: #FC4C02;
+$white: #ffffff;
 
 $yellow-light: #d2da49;
 $yellow-medium: #9E9D24;
@@ -18,12 +16,16 @@ $gray-medium: #424242;
 $gray-ghost: #757575;
 $gray-light: #9e9e9e;
 
+$body-bg: $gray-medium;
+$body-color: $white;
+
 $brand-primary: $lime;
 
-$link-color: white;
+$link-color: $white;
 
 // Fonts
 $font-family-sans-serif: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-weight-light: lighter;
 $font-size-xs: .75rem;
 
 // Grid
@@ -41,8 +43,9 @@ $header-height: 100px;
 
 // Input
 $input-bg: transparent;
-$input-border-color: $gray-medium;
+$input-border-color: $gray-light;
 $input-color: $body-color;
+$input-color-placeholder: $gray-ghost;
 
 $input-group-addon-bg: transparent;
 $input-group-addon-border-color: transparent;
