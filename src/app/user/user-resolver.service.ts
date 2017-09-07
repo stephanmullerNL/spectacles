@@ -21,9 +21,9 @@ export class UserResolver implements Resolve<any> {
         const username: string = route.paramMap.get('username').substr(1);
 
         // Fire and forget
-        this.followersService.fetchAllFollowers(username);
+        // this.followersService.fetchAllFollowers(username);
+        // this.postsService.fetchAllPostsAndComments(username);
         this.followersService.fetchFollowCount(username);
-        this.postsService.fetchAllPostsAndComments(username);
 
         return this.userService.fetchCurrentUser(username).catch(error => {
             return this.router.navigate(['/oops', error]);

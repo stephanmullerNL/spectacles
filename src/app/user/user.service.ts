@@ -7,33 +7,12 @@ import {VoteCounter} from '../models/voteCounter';
 @Injectable()
 export class UserService {
 
+    private users: Map<string, User> = new Map();
     private currentUser = new BehaviorSubject<User>(new User());
-    private users = new BehaviorSubject<User[]>([]);
 
     currentUser$ = this.currentUser.asObservable();
-    users$ = this.users.asObservable();
 
     constructor() {
-    }
-
-    addStats(users, stats) {
-
-        return users.map((user: User) => {
-            const voteCount = upvoteCount.get(user.name) || new VoteCounter();
-            const comments = commentCount.get(user.name) || 0;
-
-            user.stats = {
-                avgReward: voteCount.rshares / (voteCount.count || 1),
-                comments: comments,
-                frequency: ((voteCount.count + comments) / posts.length),
-                lastActive: this.userService.getLastActivity(user),
-                reward: voteCount.rshares,
-                totalShares: this.userService.getTotalShares(user),
-                upvotes: voteCount.count
-            };
-
-            return user;
-        });
     }
 
     fetchCurrentUser(username: string): Promise<User> {
@@ -49,26 +28,15 @@ export class UserService {
             });
     }
 
-    fetchUsers(userNames: string[]) {
-        return Steem.api.getAccounts(userNames).then((users: User[]) => {
-            return users.map((user: User) => this.transform(user));
-        }).then(users => {
-            return this.users.next(users);
+    getUsers(usernames: string[]): Promise<User[]> {
+        const newUsers = usernames.filter(name => !this.users.get(name));
+
+        return Steem.api.getAccounts(newUsers).then((users: User[]) => {
+            users.forEach(user => this.users.set(user.name, this.transform(user)));
+
+            // return all requested users, not just the new ones
+            return usernames.map((username: string) => this.users.get(username));
         });
-    }
-
-    getLastActivity(user: User): number {
-        const lastPost = Date.parse(user.last_post);
-        const lastVote = Date.parse(user.last_vote_time);
-
-        return Math.max(lastPost, lastVote);
-    }
-
-    getTotalShares(user: User) {
-        const toNumber = str => Number(str.split(' ')[0]);
-
-        return toNumber(user.vesting_shares) - toNumber(user.delegated_vesting_shares)
-            + toNumber(user.received_vesting_shares);
     }
 
     lookupAccountNames(usernames: string[]): Promise<User[]> {

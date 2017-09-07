@@ -2,43 +2,16 @@ import {Injectable} from '@angular/core';
 import * as Steem from 'steem';
 import {VoteCounter} from '../models/voteCounter';
 import {Post} from 'app/models/post';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class PostsService {
-
-    private allPosts = new BehaviorSubject<Post[]>([]);
-    private allReplies = new BehaviorSubject<Post[]>([]);
-
-    allPosts$ = this.allPosts.asObservable();
-    allReplies$ = this.allReplies.asObservable();
 
     constructor() {
     }
 
     private toFlatArray = (all, current) => all.concat(current);
 
-    countPostsByAuthour(posts) {
-        return posts.reduce((counter, post) => {
-            const count = counter.get(post.author) || 0;
-            return counter.set(post.author, count + 1);
-        }, new Map());
-    }
-
-    countUpvotesByUser(upvotes) {
-        return upvotes.reduce((all, upvote) => {
-            const voteCounter = all.get(upvote.voter) || new VoteCounter();
-
-            voteCounter.count++;
-            voteCounter.rshares += Number(upvote.rshares);
-
-            all.set(upvote.voter, voteCounter);
-
-            return all;
-        }, new Map());
-    }
-
-    fetchAllPostsAndComments(username: string): Promise<void> {
+    getAllPostsAndComments(username: string): Promise<Post[]> {
         const query = {
             limit: 100,
             start_author: username
@@ -48,29 +21,20 @@ export class PostsService {
         return Promise.all([
             Steem.api.getDiscussionsByAuthorBeforeDate(username, '', '2100-01-01T00:00:00', 100),
             Steem.api.getDiscussionsByComments(query)
-        ]).then(([posts, comments]) => {
-            return this.allPosts.next(comments.concat(posts));
-        });
+        ]).then(([posts, comments]) => comments.concat(posts));
     }
 
-    fetchReplies(posts: Post[]) {
+    getReplies(posts: Post[]): Promise<Post[]> {
         const promises = posts.map(post => {
-            return this.getReplies(post);
+            return this.getPostReplies(post);
         });
 
         return Promise.all(promises).then(results => {
-            const replies = results.reduce(this.toFlatArray, []);
-            this.allReplies.next(replies);
+            return results.reduce(this.toFlatArray, []);
         });
     }
 
-    getAllPostUpvotes(posts) {
-        return posts.reduce((all, post) => {
-            return all.concat(post.active_votes);
-        }, []);
-    }
-
-    getReplies(post) {
+    getPostReplies(post) {
         return Steem.api.getContentReplies(post.author, post.permlink);
     }
 }
