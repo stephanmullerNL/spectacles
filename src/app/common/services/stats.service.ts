@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {User} from '../../models/user';
 import {VoteCounter} from '../../models/voteCounter';
+import {PostsService} from '../../user/posts.service';
+import {FollowersService} from '../../user/followers.service';
+import {Upvote} from '../../models/upvote';
 
 @Injectable()
 export class StatsService {
@@ -10,15 +13,21 @@ export class StatsService {
 
     followerStats$ = this.followerStats.asObservable();
 
-    constructor() {
+    upvotes: Map<string, Upvote[]> = new Map();
+
+    constructor(private followersService: FollowersService,
+                private postsService: PostsService) {
     }
 
-    generateFollowerStats(data) {
-        const commentCount = this.countPostsByAuthour(data.replies);
-        const upvotes = this.getAllPostUpvotes(data.posts);
-        const upvoteCount = this.countUpvotesByUser(upvotes);
+    generateFollowerStats(username) {
+        const followerUsers = this.followersService.followerUsers.get(username);
+        const posts = this.postsService.posts.get(username);
+        const replies = this.postsService.replies.get(username);
+        const upvotes = this.getAllPostUpvotes(username, posts);
 
-        const userWithStats: User[] = [...data.followers].map((user) => {
+        const commentCount = this.countPostsByAuthour(replies);
+        const upvoteCount = this.countUpvotesByUser(upvotes);
+        const userWithStats: User[] = [...followerUsers].map((user) => {
 
             const voteCount = upvoteCount.get(user.name) || new VoteCounter();
             const comments = commentCount.get(user.name) || 0;
@@ -26,7 +35,7 @@ export class StatsService {
             const userStats = {
                 avgReward: voteCount.rshares / (voteCount.count || 1),
                 comments: comments,
-                frequency: ((voteCount.count + comments) / data.posts.length),
+                frequency: ((voteCount.count + comments) / posts.length),
                 lastActive: this.getLastActivity(user),
                 totalShares: this.getTotalShares(user),
                 reward: voteCount.rshares,
@@ -61,10 +70,15 @@ export class StatsService {
         }, new Map());
     }
 
-    getAllPostUpvotes(posts) {
-        return posts.reduce((all, post) => {
-            return all.concat(post.active_votes);
+    getAllPostUpvotes(username, posts) {
+        const upvotes = posts.reduce((all, post) => {
+            const votes = [...post.active_votes].map(vote => Object.assign(vote, {post: post}));
+            return all.concat(votes);
         }, []);
+
+        this.upvotes.set(username, upvotes);
+
+        return upvotes;
     }
 
     getLastActivity(user: User): number {

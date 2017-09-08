@@ -3,8 +3,6 @@ import {UserService} from '../user/user.service';
 import {FollowersService} from '../user/followers.service';
 import {PostsService} from '../user/posts.service';
 import {User} from 'app/models/user';
-import {Observable} from 'rxjs/Rx';
-import {Post} from '../models/post';
 import {StatsService} from '../common/services/stats.service';
 
 @Component({
@@ -21,33 +19,35 @@ export class MainComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.usersService.currentUser$.subscribe(user => {
-            let allPosts;
+        this.usersService.currentUser$.subscribe(user => this.onUserChange(user));
+    }
 
-            this.user = user;
+    private onUserChange(user) {
+        this.user = user;
 
-            const allRepliesPromise = this.postsService.getAllPostsAndComments(user.name)
-                .then((posts: Post[]) => {
-                    allPosts = posts;
-                    return this.postsService.getReplies(posts);
-                });
-
-            const followersPromise = this.followersService.getAllFollowers(user.name)
-                .then(followers => {
-                    const usernames = followers.map(follower => follower.follower);
-                    return this.usersService.getUsers(usernames);
-                });
-
-            Promise.all([
-                allRepliesPromise,
-                followersPromise
-            ]).then(([replies, followers]) => {
-                this.statsService.generateFollowerStats({
-                    posts: allPosts,
-                    replies: replies,
-                    followers: followers
-                });
-            });
+        Promise.all([
+            this.getAllRepliesPromise(user.name),
+            this.getAllFollowerUsersPromise(user.name)
+        ]).then(([replies, followerUsers]) => {
+            this.followersService.setFollowerUsers(user.name, followerUsers);
+            this.generateStats(user.name);
         });
+    }
+
+    private generateStats(username) {
+        this.statsService.generateFollowerStats(username);
+    }
+
+    private getAllRepliesPromise(username) {
+        return this.postsService.getAllPostsAndComments(username)
+            .then(() => this.postsService.getReplies(username));
+    }
+
+    private getAllFollowerUsersPromise(username) {
+        return this.followersService.getAllFollowers(username)
+            .then(followers => {
+                const usernames = followers.map(follower => follower.follower);
+                return this.usersService.getUsers(usernames);
+            });
     }
 }
