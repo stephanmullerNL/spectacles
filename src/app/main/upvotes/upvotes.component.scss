@@ -2,4 +2,8 @@
 
 .upvotes-received {
     border-left-color: $orange;
+
+    &__post {
+        white-space: normal;
+    }
 }

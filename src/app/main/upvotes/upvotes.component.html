@@ -1,58 +1,62 @@
 <div class="row">
-  <div class="col-md-4">
-    <app-card [icon]="'account'"
-              [value]="followCount.follower_count"
-              [title]="'followers'"
-              [description]="'Your Steemit fans'"
-              [ready]="followCount.account || allDone">
-    </app-card>
-  </div>
-  <div class="col-md-4">
-    <app-card [icon]="'account'"
-              [value]="followCount.following_count"
-              [title]="'following'"
-              [description]="'Your role models'"
-              [ready]="followCount.account || allDone">
-    </app-card>
-  </div>
-  <div class="col-md-4">
-    <app-card [icon]="'crown'"
-              [value]="mostReward ? '@' + mostReward.voter : 'nobody :('"
-              [title]="'most $ received'"
-              [description]="'$ ' + (mostReward?.rshares | reward)"
-              [ready]="mostReward">
-    </app-card>
-  </div>
+    <div class="col-md-4">
+        <app-card [icon]="'account'"
+                  [value]="followCount.follower_count"
+                  [title]="'followers'"
+                  [description]="'Your Steemit fans'"
+                  [ready]="followCount.account || allDone">
+        </app-card>
+    </div>
+    <div class="col-md-4">
+        <app-card [icon]="'account'"
+                  [value]="followCount.following_count"
+                  [title]="'following'"
+                  [description]="'Your role models'"
+                  [ready]="followCount.account || allDone">
+        </app-card>
+    </div>
+    <div class="col-md-4">
+        <app-card [icon]="'crown'"
+                  [value]="mostReward ? '@' + mostReward.voter : 'nobody :('"
+                  [title]="'most $ received'"
+                  [description]="'$ ' + (mostReward?.rshares | reward)"
+                  [ready]="mostReward">
+        </app-card>
+    </div>
 </div>
 
 <div class="row">
-  <div class="col-12">
-    <h2 class="table-title">Upvotes received</h2>
+    <div class="col-12">
+        <h2 class="table-title">Upvotes received</h2>
 
-    <div class="block table-wrapper" [ngClass]="{ 'loading': !(upvotes.length || allDone) }">
-      <table class="table upvotes-received">
-        <tr>
-          <th></th>
-          <th>User</th>
-          <th>Post</th>
-          <th>%</th>
-          <th>$</th>
-          <th>Date</th>
-        </tr>
-        <tr class="loading-row">
-          <th colspan="7">
-            <app-linear-progress></app-linear-progress>
-          </th>
-        </tr>
-        <tr *ngFor="let upvote of upvotes; let i = index;">
-          <td>{{i + 1}}.</td>
-          <td><app-user-link [username]="upvote.voter"></app-user-link></td>
-          <td>{{upvote.post.title || 're: ' + upvote.post.root_title}}</td>
-          <td>{{upvote.percent / 100}}%</td>
-          <td>{{upvote.rshares | reward}}</td>
-          <td>{{upvote.time | date}}</td>
-        </tr>
-      </table>
+        <div class="block table-wrapper" [ngClass]="{ 'loading': !(upvotes.length || allDone) }">
+            <table class="table upvotes-received">
+                <tr>
+                    <th>User</th>
+                    <th>Post</th>
+                    <th>%</th>
+                    <th>$</th>
+                    <th>Date</th>
+                </tr>
+                <tr class="loading-row">
+                    <th colspan="7">
+                        <app-linear-progress></app-linear-progress>
+                    </th>
+                </tr>
+                <tr *ngFor="let upvote of upvotes; let i = index;">
+                    <td>
+                        <app-user-link [username]="upvote.voter"></app-user-link>
+                    </td>
+                    <td class="upvotes-received__post">
+                        <app-post-link [post]="upvote.post"></app-post-link>
+                    </td>
+                    <td>{{upvote.percent / 100}}%</td>
+                    <td>${{upvote.rshares | reward}}</td>
+                    <td title="{{upvote.time| date:'medium'}}">
+                        {{upvote.time | amTimeAgo}}
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-  </div>
 </div>

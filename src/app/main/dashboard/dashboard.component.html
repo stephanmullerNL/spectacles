@@ -60,7 +60,6 @@
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
                     <td>${{user.stats.avgReward | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
-                    <td></td>
                 </tr>
             </table>
         </div>
@@ -94,7 +93,9 @@
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
                     <td>${{user.stats.totalShares | votePower | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
-                    <td>{{user.stats.lastActive | date}}</td>
+                    <td title="{{user.stats.lastActive | date:'medium'}}">
+                        {{user.stats.lastActive | amTimeAgo}}
+                    </td>
                 </tr>
             </table>
         </div>

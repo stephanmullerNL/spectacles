@@ -56,11 +56,10 @@ export class UpvotesComponent implements OnInit {
   }
 
   private updateAll(stats, upvotes) {
-    this.upvotes = upvotes
-        .sort((a, b) => Date.parse(b.time) - Date.parse(a.time))
-        .slice(0, 10);
+    this.upvotes = [...upvotes]
+        .sort((a, b) => Date.parse(b.time) - Date.parse(a.time));
 
-    this.mostReward = upvotes
+    this.mostReward = [...upvotes]
         .sort((a, b) => b.rshares - a.rshares)[0];
 
     // this.mostLoyal = stats
