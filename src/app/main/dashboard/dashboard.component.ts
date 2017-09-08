@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
             .filter(user => user.stats.frequency > 0)
             .sort((a, b) => b.stats.frequency - a.stats.frequency);
 
-        this.mostInfluential = stats
+        this.mostInfluential = [...stats]
             .sort((a, b) => b.stats.totalShares - a.stats.totalShares);
 
         this.ghostFollowers = stats

@@ -18,6 +18,7 @@ export class UpvotesComponent implements OnInit {
   currentUser: User = new User();
   followCount: FollowCount = new FollowCount();
   mostReward: Upvote;
+  topUpvoters: User[] = [];
   upvotes: Upvote[] = [];
 
   constructor(private followersService: FollowersService,
@@ -62,21 +63,8 @@ export class UpvotesComponent implements OnInit {
     this.mostReward = [...upvotes]
         .sort((a, b) => b.rshares - a.rshares)[0];
 
-    // this.mostLoyal = stats
-    //     .filter(user => user.stats.frequency > 0)
-    //     .sort((a, b) => b.stats.frequency - a.stats.frequency);
-    //
-    // this.mostInfluential = stats
-    //     .sort((a, b) => b.stats.totalShares - a.stats.totalShares);
-    //
-    // this.ghostFollowers = stats
-    //     .filter(user => user.stats.frequency === 0);
-    //
-    // this.deadFollowers = stats
-    //     .filter((user: User) => {
-    //       const now = Date.now();
-    //       const month = 1000 * 60 * 60 * 24 * 30;
-    //       return now - user.stats.lastActive > month;
-    //     });
+    this.topUpvoters = stats
+        .filter(user => user.stats.upvotes > 0)
+        .sort((a, b) => b.stats.upvotes - a.stats.upvotes);
   }
 }

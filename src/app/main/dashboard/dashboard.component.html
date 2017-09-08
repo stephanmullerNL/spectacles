@@ -31,7 +31,6 @@
     </div>
 </div>
 
-
 <div class="row">
     <div class="col-12">
         <h2 class="table-title">Most Loyal Followers</h2>
@@ -44,7 +43,6 @@
                     <th>Upvotes</th>
                     <th>Comments</th>
                     <th>Interaction Frequency</th>
-                    <th>Avg $ upvote</th>
                     <th>Total $ received</th>
                 </tr>
                 <tr class="loading-row">
@@ -58,7 +56,6 @@
                     <td>{{user.stats.upvotes}}</td>
                     <td>{{user.stats.comments}}</td>
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
-                    <td>${{user.stats.avgReward | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
                 </tr>
             </table>

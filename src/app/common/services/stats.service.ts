@@ -24,7 +24,6 @@ export class StatsService {
         const posts = this.postsService.posts.get(username);
         const replies = this.postsService.replies.get(username);
         const upvotes = this.getAllPostUpvotes(username, posts);
-        console.log(upvotes);
 
         const commentCount = this.countPostsByAuthour(replies);
         const upvoteCount = this.countUpvotesByUser(upvotes);

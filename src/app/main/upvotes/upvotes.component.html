@@ -27,6 +27,42 @@
 
 <div class="row">
     <div class="col-12">
+        <h2 class="table-title">Top Upvoters</h2>
+
+        <div class="block table-wrapper" [ngClass]="{ 'loading': !(topUpvoters.length || allDone) }">
+            <table class="table most-loyal">
+                <tr>
+                    <td></td>
+                    <th>Name</th>
+                    <th>Upvotes</th>
+                    <th>SP</th>
+                    <th>Avg $ upvote</th>
+                    <th>Total $ received</th>
+                    <th>Last Active</th>
+                </tr>
+                <tr class="loading-row">
+                    <th colspan="7">
+                        <app-linear-progress></app-linear-progress>
+                    </th>
+                </tr>
+                <tr *ngFor="let user of topUpvoters; let i = index;">
+                    <td>{{i + 1}}.</td>
+                    <td><app-user-link [username]="user.name"></app-user-link></td>
+                    <td>{{user.stats.upvotes}}</td>
+                    <td>{{user.stats.totalShares | steemPower}}</td>
+                    <td>${{user.stats.avgReward | reward}}</td>
+                    <td>${{user.stats.reward | reward}}</td>
+                    <td title="{{user.stats.lastActive | date:'medium'}}">
+                        {{user.stats.lastActive | amTimeAgo}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
         <h2 class="table-title">Upvotes received</h2>
 
         <div class="block table-wrapper" [ngClass]="{ 'loading': !(upvotes.length || allDone) }">
