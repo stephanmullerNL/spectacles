@@ -13,7 +13,7 @@ export class StatsService {
 
     followerStats$ = this.followerStats.asObservable();
 
-    upvotes: Upvote[] = [];
+    upvotes: Map<string, Upvote[]> = new Map();
 
     constructor(private followersService: FollowersService,
                 private postsService: PostsService) {
@@ -23,7 +23,8 @@ export class StatsService {
         const followerUsers = this.followersService.followerUsers.get(username);
         const posts = this.postsService.posts.get(username);
         const replies = this.postsService.replies.get(username);
-        const upvotes = this.getAllPostUpvotes(posts);
+        const upvotes = this.getAllPostUpvotes(username, posts);
+        console.log(upvotes);
 
         const commentCount = this.countPostsByAuthour(replies);
         const upvoteCount = this.countUpvotesByUser(upvotes);
@@ -70,11 +71,15 @@ export class StatsService {
         }, new Map());
     }
 
-    getAllPostUpvotes(posts) {
-        return this.upvotes = posts.reduce((all, post) => {
+    getAllPostUpvotes(username, posts) {
+        const upvotes = posts.reduce((all, post) => {
             const votes = [...post.active_votes].map(vote => Object.assign(vote, {post: post}));
             return all.concat(votes);
         }, []);
+
+        this.upvotes.set(username, upvotes);
+
+        return upvotes;
     }
 
     getLastActivity(user: User): number {

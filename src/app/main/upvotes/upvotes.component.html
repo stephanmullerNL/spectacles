@@ -1,3 +1,62 @@
-<p>
-  coming soon...
-</p>
+<div class="row">
+  <div class="col-md-4">
+    <app-card [icon]="'account'"
+              [value]="followCount.follower_count"
+              [title]="'followers'"
+              [description]="'Your Steemit fans'"
+              [ready]="followCount.account || allDone">
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <app-card [icon]="'account'"
+              [value]="followCount.following_count"
+              [title]="'following'"
+              [description]="'Your role models'"
+              [ready]="followCount.account || allDone">
+    </app-card>
+  </div>
+  <div class="col-md-4">
+    <!--<app-card [icon]="'crown'"-->
+              <!--[value]="mostLoyal.length ? '@' + mostLoyal[0].name : 'nobody :('"-->
+              <!--[title]="'most $ received'"-->
+              <!--[description]="'$ 13.37'"-->
+              <!--[ready]="mostLoyal.length || allDone">-->
+    <!--</app-card>-->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <h2 class="table-title">Upvotes received</h2>
+
+    <div class="block table-wrapper" [ngClass]="{ 'loading': !(upvotes.length || allDone) }">
+      <table class="table most-influential">
+        <tr>
+          <th></th>
+          <th>User</th>
+          <th>SP</th>
+          <th>Interaction frequency</th>
+          <th>100% upvote value</th>
+          <th>Total $ received</th>
+          <th>Last active</th>
+        </tr>
+        <tr class="loading-row">
+          <th colspan="7">
+            <app-linear-progress></app-linear-progress>
+          </th>
+        </tr>
+        <tr *ngFor="let upvote of upvotes; let i = index;">
+          <td>{{i + 1}}.</td>
+          <td>{{upvote.voter}}</td>
+          <td>{{upvote.rshares | reward}}</td>
+          <td>{{upvote.time | date}}</td>
+          <!--<td>{{user.stats.totalShares | steemPower}}</td>-->
+          <!--<td>{{user.stats.frequency.toFixed(2)}}</td>-->
+          <!--<td>${{user.stats.totalShares | votePower | reward}}</td>-->
+          <!--<td>${{user.stats.reward | reward}}</td>-->
+          <!--<td>{{user.stats.lastActive | date}}</td>-->
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
