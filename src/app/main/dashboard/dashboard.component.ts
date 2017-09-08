@@ -3,8 +3,6 @@ import {UserService} from '../../user/user.service';
 import {User} from '../../models/user';
 import {FollowCount} from '../../models/followers';
 import {FollowersService} from '../../user/followers.service';
-import {PostsService} from '../../user/posts.service';
-import {VoteCounter} from '../../models/voteCounter';
 import {Observable} from 'rxjs/Rx';
 import {StatsService} from '../../common/services/stats.service';
 
@@ -43,7 +41,7 @@ export class DashboardComponent implements OnInit {
         });
 
         this.statsService.followerStats$.subscribe(stats => {
-            if(stats.length) {
+            if (stats.length) {
                 this.updateAll(stats);
                 this.allDone = true;
             }
