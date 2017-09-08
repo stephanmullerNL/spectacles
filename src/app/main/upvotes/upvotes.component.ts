@@ -17,7 +17,7 @@ export class UpvotesComponent implements OnInit {
   allDone: boolean;
   currentUser: User = new User();
   followCount: FollowCount = new FollowCount();
-
+  mostReward: Upvote;
   upvotes: Upvote[] = [];
 
   constructor(private followersService: FollowersService,
@@ -41,24 +41,27 @@ export class UpvotesComponent implements OnInit {
     });
 
     this.statsService.followerStats$.subscribe(stats => {
-      if (stats.length) {
-        this.updateAll(stats);
+      const upvotes = this.statsService.upvotes.get(this.currentUser.name);
+
+      if (stats.length && upvotes) {
+        this.updateAll(stats, upvotes);
         this.allDone = true;
       }
     });
   }
 
   private resetAll(): void {
-    this.updateAll([]);
+    this.updateAll([], []);
     this.allDone = false;
   }
 
-  private updateAll(stats) {
-    console.log(this.statsService.upvotes.get(this.currentUser.name));
-    this.upvotes = (this.statsService.upvotes.get(this.currentUser.name) || [])
-        .sort((a, b) => b.rshares - a.rshares)
+  private updateAll(stats, upvotes) {
+    this.upvotes = upvotes
+        .sort((a, b) => Date.parse(b.time) - Date.parse(a.time))
         .slice(0, 10);
 
+    this.mostReward = upvotes
+        .sort((a, b) => b.rshares - a.rshares)[0];
 
     // this.mostLoyal = stats
     //     .filter(user => user.stats.frequency > 0)

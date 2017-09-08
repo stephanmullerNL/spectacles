@@ -16,12 +16,12 @@
     </app-card>
   </div>
   <div class="col-md-4">
-    <!--<app-card [icon]="'crown'"-->
-              <!--[value]="mostLoyal.length ? '@' + mostLoyal[0].name : 'nobody :('"-->
-              <!--[title]="'most $ received'"-->
-              <!--[description]="'$ 13.37'"-->
-              <!--[ready]="mostLoyal.length || allDone">-->
-    <!--</app-card>-->
+    <app-card [icon]="'crown'"
+              [value]="mostReward ? '@' + mostReward.voter : 'nobody :('"
+              [title]="'most $ received'"
+              [description]="'$ ' + (mostReward?.rshares | reward)"
+              [ready]="mostReward">
+    </app-card>
   </div>
 </div>
 
@@ -30,15 +30,14 @@
     <h2 class="table-title">Upvotes received</h2>
 
     <div class="block table-wrapper" [ngClass]="{ 'loading': !(upvotes.length || allDone) }">
-      <table class="table most-influential">
+      <table class="table upvotes-received">
         <tr>
           <th></th>
           <th>User</th>
-          <th>SP</th>
-          <th>Interaction frequency</th>
-          <th>100% upvote value</th>
-          <th>Total $ received</th>
-          <th>Last active</th>
+          <th>Post</th>
+          <th>%</th>
+          <th>$</th>
+          <th>Date</th>
         </tr>
         <tr class="loading-row">
           <th colspan="7">
@@ -47,14 +46,11 @@
         </tr>
         <tr *ngFor="let upvote of upvotes; let i = index;">
           <td>{{i + 1}}.</td>
-          <td>{{upvote.voter}}</td>
+          <td><app-user-link [username]="upvote.voter"></app-user-link></td>
+          <td>{{upvote.post.title || 're: ' + upvote.post.root_title}}</td>
+          <td>{{upvote.percent / 100}}%</td>
           <td>{{upvote.rshares | reward}}</td>
           <td>{{upvote.time | date}}</td>
-          <!--<td>{{user.stats.totalShares | steemPower}}</td>-->
-          <!--<td>{{user.stats.frequency.toFixed(2)}}</td>-->
-          <!--<td>${{user.stats.totalShares | votePower | reward}}</td>-->
-          <!--<td>${{user.stats.reward | reward}}</td>-->
-          <!--<td>{{user.stats.lastActive | date}}</td>-->
         </tr>
       </table>
     </div>

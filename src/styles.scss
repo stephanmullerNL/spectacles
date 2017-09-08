@@ -3,7 +3,6 @@
 @import 'app/variables';
 @import '~bootstrap/scss/bootstrap';
 
-
 html {
     font-size: 14px;
 }
@@ -45,12 +44,48 @@ app-root:empty {
 }
 
 .table {
+    border-bottom: 0;
+    border-left: 2px solid;
+    margin-bottom: 0;
+
     th {
         color: $gray-light;
         font-weight: normal;
     }
 
+    td {
+        white-space: nowrap;
+    }
+
     .user-link {
         text-decoration: underline;
     }
+}
+
+.table-wrapper {
+    margin-bottom: 2em;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0;
+    transition: max-height ease-in 0.5s;
+
+    &.loading {
+        max-height: 100px;
+    }
+}
+
+.loading-row {
+    display: none;
+
+    th {
+        padding: 0;
+    }
+
+    .loading & {
+        display: table-row;
+    }
+}
+
+.table-title {
+    font-size: $font-size-h5;
 }
