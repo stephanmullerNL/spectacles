@@ -2,6 +2,7 @@ import * as Steem from 'steem';
 import {Injectable} from '@angular/core';
 import {Follower, FollowCount} from '../models/followers';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {User} from "app/models/user";
 
 @Injectable()
 export class FollowersService {
@@ -9,6 +10,9 @@ export class FollowersService {
     private followCount = new BehaviorSubject<FollowCount>(new FollowCount());
 
     followCount$ = this.followCount.asObservable();
+
+    followers: Map<string, Follower[]> = new Map();
+    followerUsers: Map<string, User[]> = new Map();
 
     constructor() {
     }
@@ -23,12 +27,20 @@ export class FollowersService {
             return (newData.length === 1000) ? await fetch(all, lastUser.follower) : all;
         }
 
-        return fetch();
+        const followers = fetch();
+
+        this.followers.set(username, followers);
+
+        return followers;
     }
 
     fetchFollowCount(username: string): Promise<FollowCount> {
         return Steem.api.getFollowCount(username).then(followCount => {
             return this.followCount.next(followCount);
         });
+    }
+
+    setFollowerUsers(username, users) {
+        this.followerUsers.set(username, users);
     }
 }

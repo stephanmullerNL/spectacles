@@ -46,8 +46,9 @@
           <td>{{i + 1}}.</td>
           <td><app-user-link [username]="user.name"></app-user-link></td>
           <td>{{user.stats.totalShares | steemPower}}</td>
-          <td>{{user.stats.lastActive | date}}</td>
-          <td></td>
+          <td title="{{user.stats.lastActive | date:'medium'}}">
+            {{user.stats.lastActive | amTimeAgo}}
+          </td>
         </tr>
       </table>
     </div>
@@ -75,8 +76,9 @@
           <td>{{i + 1}}.</td>
           <td><app-user-link [username]="user.name"></app-user-link></td>
           <td>{{user.stats.totalShares | steemPower}}</td>
-          <td>{{user.stats.lastActive | date}}</td>
-          <td></td>
+          <td title="{{user.stats.lastActive | date:'medium'}}">
+            {{user.stats.lastActive | amTimeAgo}}
+          </td>
         </tr>
       </table>
     </div>
