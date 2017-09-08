@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs/Rx';
 import {User} from '../../models/user';
 import {VoteCounter} from '../../models/voteCounter';
 
 @Injectable()
 export class StatsService {
 
-     private followerStats = new BehaviorSubject<User[]>([]);
+    private followerStats = new BehaviorSubject<User[]>([]);
 
     followerStats$ = this.followerStats.asObservable();
 
@@ -38,9 +38,7 @@ export class StatsService {
             });
         });
 
-        // next()
         this.followerStats.next(userWithStats);
-
     }
 
     countPostsByAuthour(posts) {
@@ -61,11 +59,6 @@ export class StatsService {
 
             return all;
         }, new Map());
-    }
-
-    countCommentsBy(replies, user) {
-        // cache!
-        return replies.filter(reply => reply.author === user.name).length;
     }
 
     getAllPostUpvotes(posts) {

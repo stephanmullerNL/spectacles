@@ -41,9 +41,8 @@ export class FollowersComponent implements OnInit {
         });
 
         this.statsService.followerStats$.subscribe(stats => {
-            if(stats.length) {
+            if (stats.length) {
                 this.updateAll(stats);
-                this.allDone = true;
             }
         });
     }
@@ -54,16 +53,17 @@ export class FollowersComponent implements OnInit {
     }
 
     private updateAll(stats) {
+        const month = 1000 * 60 * 60 * 24 * 30;
+        const now = Date.now();
+
         this.ghostFollowers = stats
             .filter(user => user.stats.frequency === 0)
             .sort((a, b) => b.stats.lastActive - a.stats.lastActive);
 
         this.deadFollowers = stats
-            .filter((user: User) => {
-                const now = Date.now();
-                const month = 1000 * 60 * 60 * 24 * 30;
-                return now - user.stats.lastActive > month;
-            })
+            .filter((user: User) => (now - user.stats.lastActive) > month)
             .sort((a, b) => b.stats.lastActive - a.stats.lastActive);
+
+        this.allDone = true;
     }
 }

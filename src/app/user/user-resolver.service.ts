@@ -12,7 +12,6 @@ import {PostsService} from './posts.service';
 @Injectable()
 export class UserResolver implements Resolve<any> {
     constructor(private followersService: FollowersService,
-                private postsService: PostsService,
                 private router: Router,
                 private userService: UserService) {
     }
@@ -21,8 +20,6 @@ export class UserResolver implements Resolve<any> {
         const username: string = route.paramMap.get('username').substr(1);
 
         // Fire and forget
-        // this.followersService.fetchAllFollowers(username);
-        // this.postsService.fetchAllPostsAndComments(username);
         this.followersService.fetchFollowCount(username);
 
         return this.userService.fetchCurrentUser(username).catch(error => {
