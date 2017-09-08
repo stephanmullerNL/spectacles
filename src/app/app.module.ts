@@ -30,6 +30,7 @@ import {UserLinkComponent} from './user/user-link/user-link.component';
 import {UserResolver} from './user/user-resolver.service';
 import {UserService} from './user/user.service';
 import {VotePowerPipe} from './common/pipes/vote-power.pipe';
+import {StatsService} from './common/services/stats.service';
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import {VotePowerPipe} from './common/pipes/vote-power.pipe';
     providers: [
         FollowersService,
         PostsService,
+        StatsService,
         SteemResolver,
         SteemService,
         UserService,

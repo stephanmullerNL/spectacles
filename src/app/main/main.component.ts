@@ -3,6 +3,9 @@ import {UserService} from '../user/user.service';
 import {FollowersService} from '../user/followers.service';
 import {PostsService} from '../user/posts.service';
 import {User} from 'app/models/user';
+import {Observable} from 'rxjs/Rx';
+import {Post} from '../models/post';
+import {StatsService} from '../common/services/stats.service';
 
 @Component({
     templateUrl: './main.component.html',
@@ -13,19 +16,38 @@ export class MainComponent implements OnInit {
 
     constructor(private followersService: FollowersService,
                 private postsService: PostsService,
+                private statsService: StatsService,
                 private usersService: UserService) {
     }
 
     ngOnInit() {
-        this.usersService.currentUser$.subscribe(user => this.user = user);
+        this.usersService.currentUser$.subscribe(user => {
+            let allPosts;
 
-        this.followersService.followers$.subscribe(followers => {
-            const followerNames = followers.map(follower => follower.follower);
-            this.usersService.fetchUsers(followerNames);
-        });
+            this.user = user;
 
-        this.postsService.allPosts$.subscribe(allPosts => {
-            this.postsService.fetchReplies(allPosts);
+            const allRepliesPromise = this.postsService.getAllPostsAndComments(user.name)
+                .then((posts: Post[]) => {
+                    allPosts = posts;
+                    return this.postsService.getReplies(posts);
+                });
+
+            const followersPromise = this.followersService.getAllFollowers(user.name)
+                .then(followers => {
+                    const usernames = followers.map(follower => follower.follower);
+                    return this.usersService.getUsers(usernames);
+                });
+
+            Promise.all([
+                allRepliesPromise,
+                followersPromise
+            ]).then(([replies, followers]) => {
+                this.statsService.generateFollowerStats({
+                    posts: allPosts,
+                    replies: replies,
+                    followers: followers
+                });
+            });
         });
     }
 }

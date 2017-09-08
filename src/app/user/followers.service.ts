@@ -6,16 +6,14 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class FollowersService {
 
-    private followers = new BehaviorSubject<Follower[]>([]);
     private followCount = new BehaviorSubject<FollowCount>(new FollowCount());
 
-    followers$ = this.followers.asObservable();
     followCount$ = this.followCount.asObservable();
 
     constructor() {
     }
 
-    fetchAllFollowers(username: string): void {
+    getAllFollowers(username: string): Promise<Follower[]> {
         async function fetch(all = [], start = '') {
             const newData = await Steem.api.getFollowers(username, start, 'blog', 1000);
             const lastUser = newData[newData.length - 1];
@@ -25,9 +23,7 @@ export class FollowersService {
             return (newData.length === 1000) ? await fetch(all, lastUser.follower) : all;
         }
 
-        return fetch().then(followers => {
-            return this.followers.next(followers);
-        });
+        return fetch();
     }
 
     fetchFollowCount(username: string): Promise<FollowCount> {
