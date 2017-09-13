@@ -23,3 +23,7 @@ main {
         font-size: $font-size-sm;
     }
 }
+
+.container-fluid {
+    padding-right: $grid-gutter-width-base;
+}
