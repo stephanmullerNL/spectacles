@@ -1,3 +1,98 @@
-<p>
-  coming soon...
-</p>
+<div class="row">
+    <div class="col-md-4">
+        <app-card [icon]="'account'"
+                  [value]="followCount.follower_count"
+                  [title]="'followers'"
+                  [description]="'Your Steemit fans'"
+                  [ready]="followCount.account || allDone">
+        </app-card>
+    </div>
+    <div class="col-md-4">
+        <app-card [icon]="'account'"
+                  [value]="followCount.following_count"
+                  [title]="'following'"
+                  [description]="'Your role models'"
+                  [ready]="followCount.account || allDone">
+        </app-card>
+    </div>
+    <div class="col-md-4">
+        <app-card [icon]="'crown'"
+                  [value]="mostReward ? '@' + mostReward.voter : 'nobody :('"
+                  [title]="'most $ received'"
+                  [description]="'$ ' + (mostReward?.rshares | reward)"
+                  [ready]="mostReward">
+        </app-card>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="table-title">Top Upvoters</h2>
+
+        <div class="block table-wrapper" [ngClass]="{ 'loading': !(topUpvoters.length || allDone) }">
+            <table class="table top-upvoters">
+                <tr>
+                    <td></td>
+                    <th>Name</th>
+                    <th>Upvotes</th>
+                    <th>SP</th>
+                    <th>Avg $ upvote</th>
+                    <th>Total $ received</th>
+                    <th>Last Active</th>
+                </tr>
+                <tr class="loading-row">
+                    <th colspan="7">
+                        <app-linear-progress></app-linear-progress>
+                    </th>
+                </tr>
+                <tr *ngFor="let user of topUpvoters; let i = index;">
+                    <td>{{i + 1}}.</td>
+                    <td><app-user-link [username]="user.name"></app-user-link></td>
+                    <td>{{user.stats.upvotes}}</td>
+                    <td>{{user.stats.totalShares | steemPower}}</td>
+                    <td>${{user.stats.avgReward | reward}}</td>
+                    <td>${{user.stats.reward | reward}}</td>
+                    <td title="{{user.stats.lastActive | date:'medium'}}">
+                        {{user.stats.lastActive | amTimeAgo}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="table-title">Upvotes received</h2>
+
+        <div class="block table-wrapper" [ngClass]="{ 'loading': !(upvotes.length || allDone) }">
+            <table class="table upvotes-received">
+                <tr>
+                    <th>User</th>
+                    <th>Post</th>
+                    <th>%</th>
+                    <th>$</th>
+                    <th>Date</th>
+                </tr>
+                <tr class="loading-row">
+                    <th colspan="7">
+                        <app-linear-progress></app-linear-progress>
+                    </th>
+                </tr>
+                <tr *ngFor="let upvote of upvotes; let i = index;">
+                    <td>
+                        <app-user-link [username]="upvote.voter"></app-user-link>
+                    </td>
+                    <td class="upvotes-received__post">
+                        <app-post-link [post]="upvote.post"></app-post-link>
+                    </td>
+                    <td>{{upvote.percent / 100}}%</td>
+                    <td>${{upvote.rshares | reward}}</td>
+                    <td title="{{upvote.time| date:'medium'}}">
+                        {{upvote.time | amTimeAgo}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

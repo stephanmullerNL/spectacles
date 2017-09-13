@@ -28,17 +28,5 @@
 }
 
 .side-nav__footer {
-    color: $gray-light;
     padding: 30px 10px;
-    white-space: nowrap;
-
-    .mdi-heart,
-    .steemit-icon {
-        margin: 0 3px;
-    }
-
-    .mdi-heart {
-        color: $red;
-        vertical-align: middle;
-    }
 }

@@ -2,7 +2,7 @@
     <div [style.background-image]="getPictureUrl()" class="user-info__picture"></div>
 
     <span class="user-info__name">
-        <a href="https://steemit.com/@{{user.name}}" class="user-info__link">@{{user.name}}</a>
+        <app-user-link [username]="user.name"></app-user-link>
         <span class="user-info__reputation">({{user.reputation | reputation:1}})</span>
     </span>
 

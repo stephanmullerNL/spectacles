@@ -1,0 +1,13 @@
+@import '../../variables';
+
+.upvotes-received {
+    border-left-color: $orange;
+
+    &__post {
+        white-space: normal;
+    }
+}
+
+.top-upvoters {
+    border-left-color: $green;
+}

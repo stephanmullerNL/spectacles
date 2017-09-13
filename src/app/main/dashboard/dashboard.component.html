@@ -31,7 +31,6 @@
     </div>
 </div>
 
-
 <div class="row">
     <div class="col-12">
         <h2 class="table-title">Most Loyal Followers</h2>
@@ -44,7 +43,6 @@
                     <th>Upvotes</th>
                     <th>Comments</th>
                     <th>Interaction Frequency</th>
-                    <th>Avg $ upvote</th>
                     <th>Total $ received</th>
                 </tr>
                 <tr class="loading-row">
@@ -54,13 +52,11 @@
                 </tr>
                 <tr *ngFor="let user of mostLoyal; let i = index;">
                     <td>{{i + 1}}.</td>
-                    <td>@{{user.name}}</td>
+                    <td><app-user-link [username]="user.name"></app-user-link></td>
                     <td>{{user.stats.upvotes}}</td>
                     <td>{{user.stats.comments}}</td>
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
-                    <td>${{user.stats.avgReward | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
-                    <td></td>
                 </tr>
             </table>
         </div>
@@ -89,12 +85,14 @@
                 </tr>
                 <tr *ngFor="let user of mostInfluential; let i = index;">
                     <td>{{i + 1}}.</td>
-                    <td>@{{user.name}}</td>
+                    <td><app-user-link [username]="user.name"></app-user-link></td>
                     <td>{{user.stats.totalShares | steemPower}}</td>
                     <td>{{user.stats.frequency.toFixed(2)}}</td>
                     <td>${{user.stats.totalShares | votePower | reward}}</td>
                     <td>${{user.stats.reward | reward}}</td>
-                    <td>{{user.stats.lastActive | date}}</td>
+                    <td title="{{user.stats.lastActive | date:'medium'}}">
+                        {{user.stats.lastActive | amTimeAgo}}
+                    </td>
                 </tr>
             </table>
         </div>
