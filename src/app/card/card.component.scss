@@ -1,11 +1,5 @@
 @import '../variables';
 
-:host,
-.card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
 
 .card {
     text-align: center;
@@ -22,6 +16,7 @@
     &-text {
         color: $gray-light;
         font-size: $font-size-sm;
+        height: (2 * $line-height-base * $font-size-sm);
     }
 
     &-title {
