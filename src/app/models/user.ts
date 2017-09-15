@@ -8,6 +8,7 @@ export class User {
     received_vesting_shares: string;
     reputation: string;
     vesting_shares: string;
+    voting_power: number;
 
     // todo: UserProfile
     profile: UserProfile;
